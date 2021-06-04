@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Target
   - Fencer
+  - Other Fencer
   layers:
   - Default
   - TransparentFX

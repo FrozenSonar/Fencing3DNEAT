@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 65749010}
   m_Layer: 8
   m_Name: Other Fencer
-  m_TagString: Fencer
+  m_TagString: Other Fencer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1891,8 +1891,8 @@ GameObject:
   - component: {fileID: 518833335}
   - component: {fileID: 518833334}
   - component: {fileID: 518833333}
-  - component: {fileID: 518833332}
   - component: {fileID: 518833331}
+  - component: {fileID: 518833332}
   m_Layer: 0
   m_Name: Sabre
   m_TagString: Untagged
@@ -1939,7 +1939,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 518833329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8510631f27e7e4843b3ddce159b950cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 49875fc781670ed41878a8c7d91ce8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!136 &518833333
@@ -2446,7 +2446,7 @@ GameObject:
   - component: {fileID: 870544796}
   m_Layer: 0
   m_Name: Other Fencer
-  m_TagString: Fencer
+  m_TagString: Other Fencer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
