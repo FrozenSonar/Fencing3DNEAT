@@ -82,7 +82,12 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Rotate();
-        Stab();
+
+        if(Input.GetKeyDown(KeyCode.B)){
+            print("haiyaa");
+            Stab();
+        }
+
     }
 
     private void Awake()
@@ -107,8 +112,7 @@ public class PlayerController : MonoBehaviour
 
     public void Stab()
     {
-
-         
+        animator.SetTrigger("goStab");
     }
 
 
