@@ -84,7 +84,6 @@ public class PlayerController : MonoBehaviour
         Rotate();
 
         if(Input.GetKeyDown(KeyCode.B)){
-            print("haiyaa");
             Stab();
         }
 
@@ -134,12 +133,6 @@ public class PlayerController : MonoBehaviour
         else {
             speed -= acceleration;
         }
-
-        if (Input.GetKey(KeyCode.X))
-        {
-            animator.SetBool("isStabbing", true);
-        }
-
 
         speed = Mathf.Clamp(speed, 0, 1);
         Vector3 gravityMove = new Vector3(0, verticalSpeed, 0);
