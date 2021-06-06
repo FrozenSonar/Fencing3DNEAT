@@ -7,6 +7,9 @@ TagManager:
   - Target
   - Fencer
   - Other Fencer
+  - Wall
+  - Road
+  - Car
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Character
-  - 
+  - PostProcessing
   - 
   - 
   - 
