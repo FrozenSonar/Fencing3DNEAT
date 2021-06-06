@@ -27,7 +27,6 @@ public class OtherSabreHit : MonoBehaviour
             //If the GameObject has the same tag as specified, output this message in the console
         }
 
-        
     }
 
      private void OnCollisionStay(Collision col) {
