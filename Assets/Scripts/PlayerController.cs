@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
     public float downLimit = 50;
     
     // gravity
-    private float gravity = 9.87f;
+    private float gravity = 59.87f;
     private float verticalSpeed = 0;
     const float acceleration = 0.0067f;
 
