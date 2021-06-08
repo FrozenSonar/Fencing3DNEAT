@@ -5,7 +5,7 @@ using UnityEngine;
 using UnitySharpNEAT;
 using SharpNeat.Phenomes;
 /// <summary>
-/// This class serves as an example template for how to create a UnitController.
+/// This class serves as script to create a UnitController.
 /// </summary>
 public class FencerAIController : UnitController
 {
@@ -15,7 +15,7 @@ public class FencerAIController : UnitController
         public float TurnSpeed = 180f;
         public float SensorRange = 10;
 
-// track progress
+    // track progress
         public int Lap = 1;
         public int CurrentPiece = 0;
         public int LastPiece = 0;

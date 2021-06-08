@@ -190,7 +190,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnParent
       value: 
-      objectReference: {fileID: 870544796}
+      objectReference: {fileID: 1068868087}
     - target: {fileID: 7960091787313936975, guid: 4b78c34c1884fa34da0b6e8bea3a9797,
         type: 3}
       propertyPath: _enableDebugLogging
@@ -200,7 +200,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _unitControllerPrefab
       value: 
-      objectReference: {fileID: 65749011}
+      objectReference: {fileID: 1722747514}
     - target: {fileID: 7960091787313936975, guid: 4b78c34c1884fa34da0b6e8bea3a9797,
         type: 3}
       propertyPath: _experimentConfigFileName
@@ -3022,6 +3022,7 @@ GameObject:
   - component: {fileID: 1722747516}
   - component: {fileID: 1722747515}
   - component: {fileID: 1722747517}
+  - component: {fileID: 1722747514}
   m_Layer: 8
   m_Name: Main Fencer
   m_TagString: Fencer
@@ -3045,6 +3046,25 @@ Transform:
   m_Father: {fileID: 1068868087}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1722747514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722747512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76498ef5c8665f94cb331453142d331b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 5
+  TurnSpeed: 180
+  SensorRange: 10
+  Lap: 1
+  CurrentPiece: 0
+  LastPiece: 0
+  WallHits: 0
 --- !u!143 &1722747515
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3089,7 +3109,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722747512}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67366668269d7e3498769e27f9633e9e, type: 3}
   m_Name: 
