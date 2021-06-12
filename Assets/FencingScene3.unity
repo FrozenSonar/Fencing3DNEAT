@@ -1238,6 +1238,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 70a076be3f3f5f74591db16828ed8151,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 70a076be3f3f5f74591db16828ed8151,
+        type: 3}
       propertyPath: m_TagString
       value: Other Fencer
       objectReference: {fileID: 0}
@@ -1478,7 +1483,7 @@ PrefabInstance:
     - target: {fileID: 7960091787313936974, guid: 4b78c34c1884fa34da0b6e8bea3a9797,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.23
       objectReference: {fileID: 0}
     - target: {fileID: 7960091787313936974, guid: 4b78c34c1884fa34da0b6e8bea3a9797,
         type: 3}
