@@ -188,6 +188,10 @@ namespace UnitySharpNEAT
         {
             UnitController controller = GetUnusedUnit(box);
             controller.ActivateUnit(box);
+            if(_usedUnitsPool.Count() > 1){
+            controller.transform.position += new Vector3(-10,0,0);
+            controller.transform.rotation = Quaternion.Euler(0,90,0);
+            }
         }
 
         /// <summary>
@@ -213,15 +217,17 @@ namespace UnitySharpNEAT
         private UnitController GetUnusedUnit(IBlackBox box)
         {
             UnitController controller;
-
+            
             if (_unusedUnitsPool.Any())
             {
                 controller = _unusedUnitsPool.First();
                 _blackBoxMap.Add(box, controller);
+                
             }
             else
             {
                 controller = InstantiateUnit(box);
+                
             }
 
             PoolUnit(controller, true);

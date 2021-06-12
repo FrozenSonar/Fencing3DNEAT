@@ -25,7 +25,7 @@ public class FencerAIController : UnitController
 
 
         // cache the initial transform of this unit, to reset it on deactivation
-        private Vector3 _initialPosition = new Vector3(10,1,0);
+        private Vector3 _initialPosition = new Vector3(10,1,0); // spawn position
         private Quaternion _initialRotation = default;
 
      private void Start()
