@@ -28,14 +28,43 @@ public class FencerAIController : UnitController
         private Vector3 _initialPosition = new Vector3(10,1,0); // spawn position
         private Quaternion _initialRotation = default;
 
+       
+        private GameObject tobj;
+        private GameObject fencer1;
+        private GameObject otherfencer1;
      private void Start()
         {
             // cache the inital transform of this Unit, so that when the Unit gets reset, it gets put into its initial state
+            //tobj = GameObject.Find("Target");
+            fencer1 = GameObject.FindGameObjectsWithTag("Fencer")[0];
+            otherfencer1 = GameObject.FindGameObjectsWithTag("Other Fencer")[0];
+
             _initialPosition = transform.position;
             _initialRotation = transform.rotation;
             transform.localScale = new Vector3(1,1,1);
-        }
 
+        }
+    
+    private void Update() {
+    
+     if(transform.tag == "Fencer")
+     {
+        Vector3 targetPosition = new Vector3( otherfencer1.transform.position.x, 
+                                                transform.position.y, 
+                                                otherfencer1.transform.position.z ) ;
+                transform.LookAt( targetPosition ) ;
+     }
+      
+       if(transform.tag == "Other Fencer")
+     {
+        Vector3 targetPosition = new Vector3( fencer1.transform.position.x, 
+                                                transform.position.y, 
+                                                fencer1.transform.position.z ) ;
+                transform.LookAt( targetPosition ) ;
+     }
+      
+        
+     }
 
     protected override void UpdateBlackBoxInputs(ISignalArray inputSignalArray)
     {

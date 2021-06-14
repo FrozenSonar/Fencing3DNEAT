@@ -140,6 +140,9 @@ public class PlayerController : MonoBehaviour
             speed -= acceleration;
         }
 
+        
+       
+
         if(Input.GetKeyDown(KeyCode.X)){
             Flip();
 
@@ -151,9 +154,14 @@ public class PlayerController : MonoBehaviour
         Vector3 move = transform.forward * verticalMove + transform.right * horizontalMove;
         characterController.Move(speed * Time.deltaTime * move + gravityMove * Time.deltaTime);
         
+
         animator.SetFloat("Speed", speed);
         animator.SetBool("isWalking", verticalMove != 0 || horizontalMove != 0);
+    
 
+        
+        animator.SetBool("isBackwards", Input.GetKey(KeyCode.S));
+        
         
         
         

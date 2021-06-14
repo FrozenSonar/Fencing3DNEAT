@@ -188,7 +188,9 @@ namespace UnitySharpNEAT
         {
             UnitController controller = GetUnusedUnit(box);
             controller.ActivateUnit(box);
+            controller.tag = "Fencer";
             if(_usedUnitsPool.Count() > 1){
+            controller.tag = "Other Fencer";
             controller.transform.position += new Vector3(-10,0,0);
             controller.transform.rotation = Quaternion.Euler(0,90,0);
             }

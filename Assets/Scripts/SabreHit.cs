@@ -32,7 +32,7 @@ public class SabreHit : MonoBehaviour
 
      private void OnCollisionStay(Collision col) {
 
-                if (col.gameObject.tag == "Other Fencer")
+                if (col.gameObject.tag == "Fencer")
                             {
                                 //If the GameObject has the same tag as specified, output this message in the console
                                 changeColor.colortoGreen();

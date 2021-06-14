@@ -530,7 +530,7 @@ GameObject:
   - component: {fileID: 699942638}
   m_Layer: 6
   m_Name: Main Fencer L
-  m_TagString: Fencer
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1728,7 +1728,7 @@ GameObject:
   - component: {fileID: 1864223266}
   m_Layer: 0
   m_Name: Target
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2222,7 +2222,7 @@ GameObject:
   - component: {fileID: 919132148392300259}
   m_Layer: 6
   m_Name: Fencer Child
-  m_TagString: Fencer
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
