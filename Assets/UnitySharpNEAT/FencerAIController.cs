@@ -7,6 +7,7 @@ using SharpNeat.Phenomes;
 /// <summary>
 /// This class serves as script to create a UnitController.
 /// </summary>
+
 public class FencerAIController : UnitController
 {
 
@@ -14,6 +15,7 @@ public class FencerAIController : UnitController
         public float Speed = 5f;
         public float TurnSpeed = 180f;
         public float SensorRange = 10;
+        
 
     // track progress
         public int Lap = 1;
@@ -32,12 +34,17 @@ public class FencerAIController : UnitController
         private GameObject tobj;
         private GameObject fencer1;
         private GameObject otherfencer1;
+        private GameObject sabreBlade;
+        public SabreHit sabreHitScript;
+
      private void Start()
         {
             // cache the inital transform of this Unit, so that when the Unit gets reset, it gets put into its initial state
             //tobj = GameObject.Find("Target");
+            sabreHitScript = GameObject.Find("Sword_blade").GetComponent<SabreHit>();
             fencer1 = GameObject.FindGameObjectsWithTag("Fencer")[0];
             otherfencer1 = GameObject.FindGameObjectsWithTag("Other Fencer")[0];
+            
 
             _initialPosition = transform.position;
             _initialRotation = transform.rotation;
@@ -45,8 +52,16 @@ public class FencerAIController : UnitController
 
         }
     
+
+
     private void Update() {
+        
+    Debug.DrawRay(transform.position + transform.up + transform.up + transform.up  * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized) * SensorRange, Color.green); //Front Sensor Draw Ray
+    Debug.DrawRay(transform.position + transform.up + transform.up + transform.up  * 1.1f, transform.TransformDirection(new Vector3(0.1f, 0, 1).normalized) * SensorRange, Color.green); //Right Front Sensor Draw Ray
+    Debug.DrawRay(transform.position + transform.up + transform.up + transform.up  * 1.1f, transform.TransformDirection(new Vector3(-0.1f, 0, 1).normalized) * SensorRange, Color.green); //Left Front Sensor Draw Ray
     
+    //print("Sabre Hits: " + sabreHitScript.timesHit);
+
      if(transform.tag == "Fencer")
      {
         Vector3 targetPosition = new Vector3( otherfencer1.transform.position.x, 
@@ -86,45 +101,40 @@ public class FencerAIController : UnitController
 
             // Five raycasts into different directions each measure how far a wall is away.
             RaycastHit hit;
-            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange))
+
+            
+            //Debug.DrawRay(tranform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange), Color.green);
+            if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange))
             {
-                if (hit.collider.CompareTag("Fencer"))
+               //print("I've not yet hit front!");
+                
+                if (hit.collider.CompareTag("Other Fencer"))
                 {
                     frontSensor = 1 - hit.distance / SensorRange;
+                    print("Front Sensor: " + frontSensor);
+                   
                 }
             }
 
-            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0.5f, 0, 1).normalized), out hit, SensorRange))
+            if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(0.1f, 0, 1).normalized), out hit, SensorRange))
             {
-                if (hit.collider.CompareTag("Fencer"))
+                if (hit.collider.CompareTag("Other Fencer"))
                 {
                     rightFrontSensor = 1 - hit.distance / SensorRange;
+                    //print("Right Front Sensor: " + rightFrontSensor);
                 }
             }
 
-            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(1, 0, 0).normalized), out hit, SensorRange))
+            if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(-0.1f, 0, 1).normalized), out hit, SensorRange))
             {
-                if (hit.collider.CompareTag("Fencer"))
-                {
-                    rightSensor = 1 - hit.distance / SensorRange;
-                }
-            }
-
-            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(-0.5f, 0, 1).normalized), out hit, SensorRange))
-            {
-                if (hit.collider.CompareTag("Fencer"))
+                if (hit.collider.CompareTag("Other Fencer"))
                 {
                     leftFrontSensor = 1 - hit.distance / SensorRange;
+                    //print("Left Front Sensor: " + leftFrontSensor);
                 }
             }
 
-            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(-1, 0, 0).normalized), out hit, SensorRange))
-            {
-                if (hit.collider.CompareTag("Fencer"))
-                {
-                    leftSensor = 1 - hit.distance / SensorRange;
-                }
-            }
+
 
             // modify the ISignalArray object of the blackbox that was passed into this function, by filling it with the sensor information.
             // Make sure that NeatSupervisor.NetworkInputCount fits the amount of sensors you have
