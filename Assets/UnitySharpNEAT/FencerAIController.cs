@@ -112,6 +112,7 @@ public class FencerAIController : UnitController
                 {
                     frontSensor = 1 - hit.distance / SensorRange;
                     print("Front Sensor: " + frontSensor);
+                    print("Sabre Sensor: " + sabreHitScript.sabreSensor);
                    
                 }
             }
