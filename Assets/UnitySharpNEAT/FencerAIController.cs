@@ -20,12 +20,14 @@ public class FencerAIController : UnitController
         public CharacterController characterController;
         public float speed;
         public Animator animator;
+        public Animation anim;
+
+        public float closeRange;
 
         // gravity
         private float gravity = 59.87f;
         private float verticalSpeed = 0;
         const float acceleration = 0.0067f;
-
     // track progress
         public int Lap = 1;
         public int CurrentPiece = 0;
@@ -107,9 +109,7 @@ public class FencerAIController : UnitController
         //...
             float frontSensor = 0;
             float leftFrontSensor = 0;
-            float leftSensor = 0;
             float rightFrontSensor = 0;
-            float rightSensor = 0;
 
             // Five raycasts into different directions each measure how far a wall is away.
             RaycastHit hit;
@@ -123,6 +123,7 @@ public class FencerAIController : UnitController
                 if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
                 {
                     frontSensor = 1 - hit.distance / SensorRange;
+                    closeRange = frontSensor;
                     //print("Front Sensor: " + frontSensor);
                     //print("Sabre Sensor: " + sabreHitScript.sabreSensor);
                    
@@ -187,9 +188,16 @@ public class FencerAIController : UnitController
             speed = (float)outputSignalArray[2];
             var attackRange = (float)outputSignalArray[3];
 
-            print("I am attackRange: " + attackRange);
+            var horizontalMove2 = (float)outputSignalArray[4];
+            var verticalMove2 = (float)outputSignalArray[5];
+            var speed2 =( float)outputSignalArray[6];
+            var attackRange2 = (float)outputSignalArray[7];
+
+            //print("I am attackRange: " + attackRange);
             print("I am horizontalMove: "+ horizontalMove);
-            print("I am speed: "+ speed);
+            print("I am horizontalMove 2: "+ horizontalMove2);
+            print("Close Range: "+ closeRange);
+            //print("I am speed: "+ speed);
             
             //Gravity Working
             if (characterController.isGrounded) {
@@ -199,16 +207,35 @@ public class FencerAIController : UnitController
                 verticalSpeed -= gravity * Time.deltaTime;
             }
 
-            if (attackRange >= 0.5) {
-                Stab();
+            if(transform.tag == "Other Fencer") {
+            horizontalMove = horizontalMove2;
+            verticalMove = verticalMove2;
+            speed = speed2;
+            attackRange = attackRange2;
             }
 
+             if (closeRange >= 0.87) {
+                Flip();
+            }
+            if (closeRange >= 0.6) {
+                Stab();
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stabbing")) {
+                    animator.speed = 2;
+                }
+                else {
+                    animator.speed = 1;
+                }
+            }
+            
+            
+           
+            
             speed = Mathf.Clamp(speed, 0, 1);
             Vector3 gravityMove = new Vector3(0, verticalSpeed, 0);
         
             Vector3 move = transform.forward * verticalMove + transform.right * horizontalMove;
             characterController.Move(speed * Time.deltaTime * move + gravityMove * Time.deltaTime);
-        
+
             animator.SetFloat("Speed", speed);
             animator.SetBool("isWalking", verticalMove != 0 || horizontalMove != 0);
             animator.SetBool("isBackwards", verticalMove < 0 || horizontalMove < 0);
@@ -218,6 +245,11 @@ public class FencerAIController : UnitController
     public void Stab()
     {
         animator.SetTrigger("goStab");
+    }   
+
+    public void Flip()
+    {
+        animator.SetTrigger("goFlip");
     }
 
     public override float GetFitness()

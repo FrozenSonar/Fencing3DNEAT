@@ -1567,6 +1567,21 @@ PrefabInstance:
       objectReference: {fileID: 699942638}
     - target: {fileID: 7960091787313936975, guid: 4b78c34c1884fa34da0b6e8bea3a9797,
         type: 3}
+      propertyPath: TrialDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960091787313936975, guid: 4b78c34c1884fa34da0b6e8bea3a9797,
+        type: 3}
+      propertyPath: _networkInputCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960091787313936975, guid: 4b78c34c1884fa34da0b6e8bea3a9797,
+        type: 3}
+      propertyPath: _networkOutputCount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960091787313936975, guid: 4b78c34c1884fa34da0b6e8bea3a9797,
+        type: 3}
       propertyPath: _unitControllerPrefab
       value: 
       objectReference: {fileID: 919132148392300259}
@@ -2247,6 +2262,7 @@ MonoBehaviour:
   characterController: {fileID: 884608404}
   speed: 0
   animator: {fileID: 5866666020526951970}
+  closeRange: 0
   Lap: 1
   CurrentPiece: 0
   LastPiece: 0
