@@ -141,8 +141,6 @@ public class PlayerController : MonoBehaviour
         }
 
         
-       
-
         if(Input.GetKeyDown(KeyCode.X)){
             Flip();
 
@@ -160,7 +158,7 @@ public class PlayerController : MonoBehaviour
     
 
         
-        animator.SetBool("isBackwards", Input.GetKey(KeyCode.S));
+        animator.SetBool("isBackwards", verticalMove < 0 || horizontalMove < 0);
         
         
         

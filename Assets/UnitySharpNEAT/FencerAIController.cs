@@ -12,10 +12,19 @@ public class FencerAIController : UnitController
 {
 
     // general control variables
-        public float Speed = 5f;
+        //public float Speed = 5f;
         public float TurnSpeed = 180f;
         public float SensorRange = 10;
         
+    //Fencer Controller Variables
+        public CharacterController characterController;
+        public float speed;
+        public Animator animator;
+
+        // gravity
+        private float gravity = 59.87f;
+        private float verticalSpeed = 0;
+        const float acceleration = 0.0067f;
 
     // track progress
         public int Lap = 1;
@@ -55,13 +64,16 @@ public class FencerAIController : UnitController
 
 
     private void Update() {
-        
+
+    //Draw Rays on Fencer for Debugging 
     Debug.DrawRay(transform.position + transform.up + transform.up + transform.up  * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized) * SensorRange, Color.green); //Front Sensor Draw Ray
-    Debug.DrawRay(transform.position + transform.up + transform.up + transform.up  * 1.1f, transform.TransformDirection(new Vector3(0.1f, 0, 1).normalized) * SensorRange, Color.green); //Right Front Sensor Draw Ray
-    Debug.DrawRay(transform.position + transform.up + transform.up + transform.up  * 1.1f, transform.TransformDirection(new Vector3(-0.1f, 0, 1).normalized) * SensorRange, Color.green); //Left Front Sensor Draw Ray
+    Debug.DrawRay(transform.position + transform.up + transform.up  * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized) * SensorRange, Color.green); //Right Front Sensor Draw Ray
+    Debug.DrawRay(transform.position + transform.up  * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized) * SensorRange, Color.green); //Left Front Sensor Draw Ray
     
     //print("Sabre Hits: " + sabreHitScript.timesHit);
 
+
+    //Forcing Fencer to look at each other
      if(transform.tag == "Fencer")
      {
         Vector3 targetPosition = new Vector3( otherfencer1.transform.position.x, 
@@ -108,27 +120,29 @@ public class FencerAIController : UnitController
             {
                //print("I've not yet hit front!");
                 
-                if (hit.collider.CompareTag("Other Fencer"))
+                if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
                 {
                     frontSensor = 1 - hit.distance / SensorRange;
-                    print("Front Sensor: " + frontSensor);
-                    print("Sabre Sensor: " + sabreHitScript.sabreSensor);
+                    //print("Front Sensor: " + frontSensor);
+                    //print("Sabre Sensor: " + sabreHitScript.sabreSensor);
                    
                 }
             }
 
-            if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(0.1f, 0, 1).normalized), out hit, SensorRange))
+            //if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(0.1f, 0, 1).normalized), out hit, SensorRange))
+            if (Physics.Raycast(transform.position + transform.up + transform.up* 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange))
             {
-                if (hit.collider.CompareTag("Other Fencer"))
+                if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
                 {
                     rightFrontSensor = 1 - hit.distance / SensorRange;
                     //print("Right Front Sensor: " + rightFrontSensor);
                 }
             }
 
-            if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(-0.1f, 0, 1).normalized), out hit, SensorRange))
+            //if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(-0.1f, 0, 1).normalized), out hit, SensorRange))
+            if (Physics.Raycast(transform.position + transform.up * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange))
             {
-                if (hit.collider.CompareTag("Other Fencer"))
+                if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
                 {
                     leftFrontSensor = 1 - hit.distance / SensorRange;
                     //print("Left Front Sensor: " + leftFrontSensor);
@@ -141,9 +155,8 @@ public class FencerAIController : UnitController
             // Make sure that NeatSupervisor.NetworkInputCount fits the amount of sensors you have
             inputSignalArray[0] = frontSensor;
             inputSignalArray[1] = leftFrontSensor;
-            inputSignalArray[2] = leftSensor;
-            inputSignalArray[3] = rightFrontSensor;
-            inputSignalArray[4] = rightSensor;
+            inputSignalArray[2] = rightFrontSensor;
+
         
     }
 
@@ -160,14 +173,51 @@ public class FencerAIController : UnitController
         //someMoveSpeed = outputSignalArray[1];
         //...
 
-            var steer = (float)outputSignalArray[0] * 2 - 1;
-            var gas = (float)outputSignalArray[1] * 2 - 1;
+            //var steer = (float)outputSignalArray[0] * 2 - 1;
+            //var gas = (float)outputSignalArray[1] * 2 - 1;
 
-            var moveDist = gas * Speed * Time.deltaTime;
-            var turnAngle = steer * TurnSpeed * Time.deltaTime * gas;
+            //var moveDist = gas * Speed * Time.deltaTime;
+            //var turnAngle = steer * TurnSpeed * Time.deltaTime * gas;
 
-            transform.Rotate(new Vector3(0, turnAngle, 0));
-            transform.Translate(Vector3.forward * moveDist);
+            //transform.Rotate(new Vector3(0, turnAngle, 0));
+            //transform.Translate(Vector3.forward * moveDist);
+
+            var horizontalMove = (float)outputSignalArray[0];
+            var verticalMove = (float)outputSignalArray[1];
+            speed = (float)outputSignalArray[2];
+            var attackRange = (float)outputSignalArray[3];
+
+            print("I am attackRange: " + attackRange);
+            print("I am horizontalMove: "+ horizontalMove);
+            print("I am speed: "+ speed);
+            
+            //Gravity Working
+            if (characterController.isGrounded) {
+                verticalSpeed = 0;
+            }
+            else {
+                verticalSpeed -= gravity * Time.deltaTime;
+            }
+
+            if (attackRange >= 0.5) {
+                Stab();
+            }
+
+            speed = Mathf.Clamp(speed, 0, 1);
+            Vector3 gravityMove = new Vector3(0, verticalSpeed, 0);
+        
+            Vector3 move = transform.forward * verticalMove + transform.right * horizontalMove;
+            characterController.Move(speed * Time.deltaTime * move + gravityMove * Time.deltaTime);
+        
+            animator.SetFloat("Speed", speed);
+            animator.SetBool("isWalking", verticalMove != 0 || horizontalMove != 0);
+            animator.SetBool("isBackwards", verticalMove < 0 || horizontalMove < 0);
+
+    }
+
+    public void Stab()
+    {
+        animator.SetTrigger("goStab");
     }
 
     public override float GetFitness()
