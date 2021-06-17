@@ -702,8 +702,8 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.32
   m_SlopeLimit: 1
-  m_StepOffset: 0.1
-  m_SkinWidth: 0.08
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.07
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.98, z: 0}
 --- !u!1 &963194225
@@ -1727,7 +1727,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.7581531
+  m_Radius: 0.5
   m_Height: 70.68771
   m_Direction: 1
   m_Center: {x: 0.000058318805, y: 22.712175, z: 6.1217995}
@@ -2262,6 +2262,7 @@ MonoBehaviour:
   characterController: {fileID: 884608404}
   speed: 0
   animator: {fileID: 5866666020526951970}
+  anim: {fileID: 0}
   closeRange: 0
   Lap: 1
   CurrentPiece: 0
