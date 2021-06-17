@@ -6,8 +6,11 @@ using UnityEngine;
 public class SabreHit : MonoBehaviour
 {
     public int timesHit = 0;
-    GameObject referenceObject;
-    changeMaterial changeColor;
+    GameObject leftTarget;
+    changeMaterial changeLeftColor;
+    GameObject rightTarget;
+    changeMaterial changeRightColor;
+
     GameObject rightHand;
 
     public float sabreSensor;
@@ -25,7 +28,7 @@ public class SabreHit : MonoBehaviour
                 if (hit.collider.CompareTag("Other Fencer"))
                 {
                     sabreSensor = 1 - hit.distance / SabreRange;
-                    print("Sabre Sensor: " + sabreSensor);
+                    //print("Sabre Sensor: " + sabreSensor);
                    
                 }
 
@@ -41,9 +44,9 @@ public class SabreHit : MonoBehaviour
         if (col.gameObject.name == "Target")
         {
             //If the GameObject's name matches the one you suggest, output this message in the console
-            print("I'm stabbing a Target!");
+            //print("I'm stabbing a Target!");
             
-            changeColor.colortoGreen();
+            //changeLeftColor.colortoGreen();
         }
 
         //Check for a match with the specific tag on any GameObject that collides with your GameObject
@@ -57,16 +60,24 @@ public class SabreHit : MonoBehaviour
 
      private void OnCollisionStay(Collision col) {
 
+                if (col.gameObject.tag == "Fencer")
+                            {
+                                //If the GameObject has the same tag as specified, output this message in the console
+                                changeLeftColor.colortoGreen();
+                                
+                                //print(transform.root.tag);
+                                //print("I've stabbed a Fencer!!");
+                                timesHit += 1;
+                            }
                 if (col.gameObject.tag == "Other Fencer")
                             {
                                 //If the GameObject has the same tag as specified, output this message in the console
-                                changeColor.colortoGreen();
+                                changeRightColor.colortoGreen();
                                 
                                 //print(transform.root.tag);
-                                print("I've stabbed a Fencer!!");
+                                //print("I've stabbed a Fencer!!");
                                 timesHit += 1;
                             }
-    
 
 
             }
@@ -74,13 +85,16 @@ public class SabreHit : MonoBehaviour
 
     void OnCollisionExit(Collision col)
     {
-         changeColor.colortoBlue();
+         changeLeftColor.colortoBlue();
+         changeRightColor.colortoBlue();
     }
     void Start()
     {
+        leftTarget = GameObject.Find("LeftTarget");
+        changeLeftColor = leftTarget.GetComponent<changeMaterial>();
 
-        referenceObject = GameObject.Find("Target");
-        changeColor = referenceObject.GetComponent<changeMaterial>();
+        rightTarget = GameObject.Find("RightTarget");
+        changeRightColor = rightTarget.GetComponent<changeMaterial>();
     }
     // Update is called once per frame
     

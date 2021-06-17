@@ -10,6 +10,8 @@ TagManager:
   - Wall
   - Road
   - Car
+  - Blade
+  - Environment
   layers:
   - Default
   - TransparentFX

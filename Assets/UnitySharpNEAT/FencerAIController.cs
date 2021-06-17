@@ -23,7 +23,7 @@ public class FencerAIController : UnitController
         public Animation anim;
 
         public float closeRange;
-
+        public float bladeSensor = 0;
         // gravity
         private float gravity = 59.87f;
         private float verticalSpeed = 0;
@@ -95,6 +95,13 @@ public class FencerAIController : UnitController
         
      }
 
+     void OnDrawGizmosSelected()
+    {
+        // Display the explosion radius when selected
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + transform.forward + transform.forward + transform.up + transform.up, 3);
+    }
+
     protected override void UpdateBlackBoxInputs(ISignalArray inputSignalArray)
     {
         // Called by the base class on FixedUpdate
@@ -110,11 +117,31 @@ public class FencerAIController : UnitController
             float frontSensor = 0;
             float leftFrontSensor = 0;
             float rightFrontSensor = 0;
-
+            float sphereSensor = 0;
+            
+            int layerMask = (1 << 6);
             // Five raycasts into different directions each measure how far a wall is away.
             RaycastHit hit;
 
-            
+            if (Physics.SphereCast(transform.position + transform.up + transform.up, 3, transform.forward + transform.forward, out hit, 3, layerMask))
+            {
+                if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
+                {
+                    sphereSensor = 1 - hit.distance / 3;
+                    //print("I've hit a: " + hit.collider.gameObject.name);
+                    print("Sphere Sensor: " + sphereSensor);
+                }
+
+                if (hit.collider.CompareTag("Blade"))
+                {
+                    bladeSensor = 1 - hit.distance / 3;
+                    //print("I've hit a: " + hit.collider.gameObject.name);
+                    print("Blade Sensor: " + bladeSensor);
+                }
+                
+            }
+
+
             //Debug.DrawRay(tranform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange), Color.green);
             if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange))
             {
@@ -124,20 +151,24 @@ public class FencerAIController : UnitController
                 {
                     frontSensor = 1 - hit.distance / SensorRange;
                     closeRange = frontSensor;
-                    print("Front Sensor: " + frontSensor);
-                    print("Sabre Sensor: " + sabreHitScript.sabreSensor);
+                    //print("Front Sensor: " + frontSensor);
+                    //print("Sabre Sensor: " + sabreHitScript.sabreSensor);
                    
                 }
+                
+                
             }
 
+            
             //if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(0.1f, 0, 1).normalized), out hit, SensorRange))
             if (Physics.Raycast(transform.position + transform.up + transform.up, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange))
             {
                 if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
                 {
                     rightFrontSensor = 1 - hit.distance / SensorRange;
-                    print("Right Front Sensor: " + rightFrontSensor);
+                    //print("Right Front Sensor: " + rightFrontSensor);
                 }
+
             }
 
             //if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(-0.1f, 0, 1).normalized), out hit, SensorRange))
@@ -146,8 +177,9 @@ public class FencerAIController : UnitController
                 if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
                 {
                     leftFrontSensor = 1 - hit.distance / SensorRange;
-                    print("Left Front Sensor: " + leftFrontSensor);
+                    //print("Left Front Sensor: " + leftFrontSensor);
                 }
+
             }
 
 
@@ -157,6 +189,8 @@ public class FencerAIController : UnitController
             inputSignalArray[0] = frontSensor;
             inputSignalArray[1] = leftFrontSensor;
             inputSignalArray[2] = rightFrontSensor;
+            inputSignalArray[3] = sphereSensor;
+            inputSignalArray[4] = bladeSensor;
 
         
     }
@@ -219,6 +253,10 @@ public class FencerAIController : UnitController
                 StabCombo();
             }
 
+            if (bladeSensor >= 0.87) {
+                animator.SetFloat("DodgeSpeed", bladeSensor);
+                Dodge();
+            }
 
             if (closeRange >= 0.6) {
                 Stab();
@@ -256,6 +294,12 @@ public class FencerAIController : UnitController
     {
         animator.SetTrigger("goFlip");
     }
+
+     public void Dodge()
+    {
+        animator.SetTrigger("goDodge");
+    }
+
 
     public override float GetFitness()
     {
