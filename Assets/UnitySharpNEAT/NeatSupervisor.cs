@@ -190,9 +190,10 @@ namespace UnitySharpNEAT
             controller.ActivateUnit(box);
             controller.tag = "Fencer";
             if(_usedUnitsPool.Count() > 1){
-            controller.tag = "Other Fencer";
-            controller.transform.position += new Vector3(-10,0,0);
-            controller.transform.rotation = Quaternion.Euler(0,90,0);
+                controller.tag = "Other Fencer";
+                controller.transform.position = new Vector3(0,0,0);
+                //controller.transform.position += new Vector3(-10,0,0);
+                controller.transform.rotation = Quaternion.Euler(0,90,0);
             }
         }
 

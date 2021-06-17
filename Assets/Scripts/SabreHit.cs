@@ -17,8 +17,8 @@ public class SabreHit : MonoBehaviour
     void Update()
     {
         //0.966f
-        Debug.DrawRay(transform.position * 0.966f, transform.TransformDirection(new Vector3(0, 90, 0).normalized) * SabreRange, Color.red); //Front Sensor Draw Ray
-        if (Physics.Raycast(transform.position * 0.966f, transform.TransformDirection(new Vector3(0, 90, 0).normalized), out hit, SabreRange))
+        Debug.DrawRay(transform.parent.position * 0.966f, transform.TransformDirection(new Vector3(0, 90, 0).normalized) * SabreRange, Color.red); //Front Sensor Draw Ray
+        if (Physics.Raycast(transform.parent.position * 0.966f, transform.TransformDirection(new Vector3(0, 90, 0).normalized), out hit, SabreRange))
             {
                //print("I've not yet hit front!");
                 
