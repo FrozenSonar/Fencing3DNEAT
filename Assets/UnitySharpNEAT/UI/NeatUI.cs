@@ -31,14 +31,7 @@ namespace UnitySharpNEAT
         
         private void Start(){
             uiCounter = GameObject.Find("Cube").GetComponent<hitCounter>();
-            fencer1 = GameObject.FindGameObjectsWithTag("Fencer")[0];
-            sabreHitRightScripts = fencer1.GetComponentInChildren<SabreHit>();
-            otherfencer1 = GameObject.FindGameObjectsWithTag("Other Fencer")[0];
-            sabreHitLeftScripts = otherfencer1.GetComponentInChildren<SabreHit>();
             
-
-            leftHit = sabreHitLeftScripts.currentLeftHit;
-            rightHit = sabreHitRightScripts.currentRightHit;
         }
 
         private void OnGUI()
@@ -49,11 +42,19 @@ namespace UnitySharpNEAT
                 _neatSupervisor.StartEvolution();
             }
 
+            fencer1 = GameObject.FindGameObjectsWithTag("Fencer")[0];
+            sabreHitRightScripts = fencer1.GetComponentInChildren<SabreHit>();
+            otherfencer1 = GameObject.FindGameObjectsWithTag("Other Fencer")[0];
+            sabreHitLeftScripts = otherfencer1.GetComponentInChildren<SabreHit>();
+            leftHit = sabreHitLeftScripts.currentLeftHit;
+            rightHit = sabreHitRightScripts.currentRightHit;
             //sabreHitScripts = GameObject.Find("Sword_blade").GetComponent<SabreHit>();
             
-
-            GUI.Button(new Rect(200,10, 130, 30), string.Format("Current Left Hit: {1}\nAll Left Hits: {1}", leftHit, uiCounter.allLeftHit));
-            GUI.Button(new Rect(500,10, 130, 30), string.Format("Current Right Hit: {1}\nAll Right Hits: {1}", rightHit, uiCounter.allRightHit));
+           
+            GUI.Button(new Rect(200,10, 130, 30),"Current Left Hit: " + leftHit);
+            GUI.Button(new Rect(200,40, 130, 30),"All Left Hits: " + uiCounter.allLeftHit);
+            GUI.Button(new Rect(500,10, 130, 30),"Current Right Hit: " + rightHit);
+            GUI.Button(new Rect(500,40, 130, 30),"All Right Hits: " +uiCounter.allRightHit);
             
             /*
             if (GUI.Button(new Rect(10, 60, 110, 40), "Stop + save EA"))

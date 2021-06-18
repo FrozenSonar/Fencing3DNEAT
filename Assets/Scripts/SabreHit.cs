@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class SabreHit : MonoBehaviour
 {
-    public int currentLeftHit;
-    public int currentRightHit;
+   
 
     GameObject leftTarget;
     changeMaterial changeLeftColor;
@@ -19,6 +18,10 @@ public class SabreHit : MonoBehaviour
 
     public float sabreSensor;
     public float SabreRange = 15;
+
+    public int currentLeftHit = 0;
+    public int currentRightHit = 0;
+
     RaycastHit hit;
 
     void Update()
@@ -49,7 +52,7 @@ public class SabreHit : MonoBehaviour
                             
                                 currentLeftHit = 1;
                                 uiCounter.allLeftHit += 1;
-                           
+                                
                             }
                 if (col.gameObject.tag == "Other Fencer") // Right Side
                             {

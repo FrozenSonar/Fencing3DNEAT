@@ -53,6 +53,7 @@ public class FencerAIController : UnitController
         private GameObject otherfencer1;
         private GameObject sabreBlade;
         public SabreHit sabreHitScript;
+        
 
      private void Start()
         {
