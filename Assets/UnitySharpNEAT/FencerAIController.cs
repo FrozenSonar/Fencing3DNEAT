@@ -11,24 +11,30 @@ using SharpNeat.Phenomes;
 public class FencerAIController : UnitController
 {
 
-    // general control variables
+        // general control variables
         //public float Speed = 5f;
         public float TurnSpeed = 180f;
         public float SensorRange = 10;
         
-    //Fencer Controller Variables
+        //Fencer Controller Variables
         public CharacterController characterController;
         public float speed;
         public Animator animator;
         public Animation anim;
 
-        public float closeRange;
-        public float bladeSensor = 0;
+        //sensors
+        public float frontSensor;
+        public float leftFrontSensor;
+        public float rightFrontSensor;
+        public float bladeSensor;
+        public float sphereSensor;
+
         // gravity
         private float gravity = 59.87f;
         private float verticalSpeed = 0;
         const float acceleration = 0.0067f;
-    // track progress
+
+        // track progress
         public int Lap = 1;
         public int CurrentPiece = 0;
         public int LastPiece = 0;
@@ -55,7 +61,17 @@ public class FencerAIController : UnitController
             sabreHitScript = GameObject.Find("Sword_blade").GetComponent<SabreHit>();
             fencer1 = GameObject.FindGameObjectsWithTag("Fencer")[0];
             otherfencer1 = GameObject.FindGameObjectsWithTag("Other Fencer")[0];
+
+            if(transform.tag == "Fencer") {
+                print("I am fencer " + transform.tag);
+                sabreHitScript = fencer1.GetComponentInChildren<SabreHit>();
+            }
+            if(transform.tag == "Other Fencer") {
+                print("I am other fencer " + transform.tag);
+                sabreHitScript = otherfencer1.GetComponentInChildren<SabreHit>();
+            }
             
+
 
             _initialPosition = transform.position;
             _initialRotation = transform.rotation;
@@ -114,10 +130,8 @@ public class FencerAIController : UnitController
         //inputSignalArray[0] = someSensorValue;
         //inputSignalArray[1] = someOtherSensorValue;
         //...
-            float frontSensor = 0;
-            float leftFrontSensor = 0;
-            float rightFrontSensor = 0;
-            float sphereSensor = 0;
+            
+            
             
             int layerMask = (1 << 6);
             // Five raycasts into different directions each measure how far a wall is away.
@@ -129,14 +143,14 @@ public class FencerAIController : UnitController
                 {
                     sphereSensor = 1 - hit.distance / 3;
                     //print("I've hit a: " + hit.collider.gameObject.name);
-                    print("Sphere Sensor: " + sphereSensor);
+                    //print("Sphere Sensor: " + sphereSensor);
                 }
 
                 if (hit.collider.CompareTag("Blade"))
                 {
                     bladeSensor = 1 - hit.distance / 3;
                     //print("I've hit a: " + hit.collider.gameObject.name);
-                    print("Blade Sensor: " + bladeSensor);
+                    //print("Blade Sensor: " + bladeSensor);
                 }
                 
             }
@@ -150,7 +164,6 @@ public class FencerAIController : UnitController
                 if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
                 {
                     frontSensor = 1 - hit.distance / SensorRange;
-                    closeRange = frontSensor;
                     //print("Front Sensor: " + frontSensor);
                     //print("Sabre Sensor: " + sabreHitScript.sabreSensor);
                    
@@ -224,7 +237,7 @@ public class FencerAIController : UnitController
 
             var horizontalMove2 = (float)outputSignalArray[4];
             var verticalMove2 = (float)outputSignalArray[5];
-            var speed2 =( float)outputSignalArray[6];
+            var speed2 = (float)outputSignalArray[6];
             var attackRange2 = (float)outputSignalArray[7];
 
             //print("I am attackRange: " + attackRange);
@@ -248,17 +261,21 @@ public class FencerAIController : UnitController
                 attackRange = attackRange2;
             }
 
-             if (closeRange >= 0.87) {
+             if (frontSensor >= 0.87) {
                 animator.SetFloat("AttackSpeed", speed);
                 StabCombo();
             }
 
             if (bladeSensor >= 0.87) {
-                animator.SetFloat("DodgeSpeed", bladeSensor);
+                animator.SetFloat("DodgeSpeed", attackRange);
                 Dodge();
             }
 
-            if (closeRange >= 0.6) {
+            if (sphereSensor <= 0.7) {
+                 Flip();
+            }
+
+            if (frontSensor >= 0.6) {
                 Stab();
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stabbing")) {
                     animator.speed = 2;
@@ -346,6 +363,8 @@ public class FencerAIController : UnitController
                 CurrentPiece = 0;
                 LastPiece = 0;
                 WallHits = 0;
+                sabreHitScript.currentLeftHit = 0;
+                sabreHitScript.currentRightHit = 0;
                 _movingForward = true;
 
             // hide/show children 
@@ -364,6 +383,7 @@ public class FencerAIController : UnitController
                 Lap++;
             }
         }
+
     private void OnCollisionEnter(Collision collision)
         {
             if (!IsActive)

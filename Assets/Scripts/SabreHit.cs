@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class SabreHit : MonoBehaviour
 {
-    public int timesHit = 0;
+    public int currentLeftHit;
+    public int currentRightHit;
+
     GameObject leftTarget;
     changeMaterial changeLeftColor;
     GameObject rightTarget;
     changeMaterial changeRightColor;
+
+    hitCounter uiCounter;
 
     GameObject rightHand;
 
@@ -40,43 +44,46 @@ public class SabreHit : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
 
-        //Check for a match with the specified name on any GameObject that collides with your GameObject
-        if (col.gameObject.name == "Target")
-        {
-            //If the GameObject's name matches the one you suggest, output this message in the console
-            //print("I'm stabbing a Target!");
-            
-            //changeLeftColor.colortoGreen();
-        }
+        if (col.gameObject.tag == "Fencer") // Left side
+                            {
+                            
+                                currentLeftHit = 1;
+                                uiCounter.allLeftHit += 1;
+                           
+                            }
+                if (col.gameObject.tag == "Other Fencer") // Right Side
+                            {
 
-        //Check for a match with the specific tag on any GameObject that collides with your GameObject
-        if (col.gameObject.tag == "Fencer")
-        {
-            //If the GameObject has the same tag as specified, output this message in the console
-        }
+                               
+                                currentRightHit = 1;
+                                uiCounter.allRightHit += 1;
+                             
+                            }
 
         
     }
 
      private void OnCollisionStay(Collision col) {
 
-                if (col.gameObject.tag == "Fencer")
+                if (col.gameObject.tag == "Fencer") // Left side
                             {
                                 //If the GameObject has the same tag as specified, output this message in the console
                                 changeLeftColor.colortoGreen();
                                 
                                 //print(transform.root.tag);
                                 //print("I've stabbed a Fencer!!");
-                                timesHit += 1;
+                           
+                                //print(currentLeftHit +"\n" + allLeftHit);
                             }
-                if (col.gameObject.tag == "Other Fencer")
+                if (col.gameObject.tag == "Other Fencer") // Right Side
                             {
                                 //If the GameObject has the same tag as specified, output this message in the console
                                 changeRightColor.colortoGreen();
                                 
                                 //print(transform.root.tag);
                                 //print("I've stabbed a Fencer!!");
-                                timesHit += 1;
+                              
+                               // print(currentRightHit +"\n" + allRightHit);
                             }
 
 
@@ -90,6 +97,8 @@ public class SabreHit : MonoBehaviour
     }
     void Start()
     {
+        uiCounter = GameObject.Find("Cube").GetComponent<hitCounter>();
+
         leftTarget = GameObject.Find("LeftTarget");
         changeLeftColor = leftTarget.GetComponent<changeMaterial>();
 
