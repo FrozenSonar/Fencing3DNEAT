@@ -23,8 +23,8 @@ namespace UnitySharpNEAT
 
         public SabreHit sabreHitLeftScripts;
         public SabreHit sabreHitRightScripts;
-        int leftHit;
-        int rightHit;
+        public int leftHit;
+        public int rightHit;
         hitCounter uiCounter;
         private GameObject fencer1;
         private GameObject otherfencer1;
@@ -45,6 +45,7 @@ namespace UnitySharpNEAT
             fencer1 = GameObject.FindGameObjectsWithTag("Fencer")[0];
             sabreHitRightScripts = fencer1.GetComponentInChildren<SabreHit>();
             otherfencer1 = GameObject.FindGameObjectsWithTag("Other Fencer")[0];
+            
             sabreHitLeftScripts = otherfencer1.GetComponentInChildren<SabreHit>();
             leftHit = sabreHitLeftScripts.currentLeftHit;
             rightHit = sabreHitRightScripts.currentRightHit;

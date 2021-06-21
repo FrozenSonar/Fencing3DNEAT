@@ -95,8 +95,8 @@ public class SabreHit : MonoBehaviour
 
     void OnCollisionExit(Collision col)
     {
-         changeLeftColor.colortoBlue();
-         changeRightColor.colortoBlue();
+         //changeLeftColor.colortoBlue();
+         //changeRightColor.colortoBlue();
     }
     void Start()
     {

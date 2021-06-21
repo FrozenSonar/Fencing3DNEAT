@@ -56,10 +56,15 @@ namespace SharpNeat.EvolutionAlgorithms
         bool _pauseRequestFlag;
         readonly AutoResetEvent _awaitPauseEvent = new AutoResetEvent(false);
         readonly AutoResetEvent _awaitRestartEvent = new AutoResetEvent(false);
+        NeatUI neatCounter;
 
         #endregion
 
         #region Events
+        
+        private void Start(){
+            neatCounter = GameObject.Find("NeatUI").GetComponent<NeatUI>();
+        }
 
         /// <summary>
         /// Notifies listeners that some state change has occured.
@@ -247,13 +252,13 @@ namespace SharpNeat.EvolutionAlgorithms
             {
                 _currentGeneration++;
 
+                
                 UnitySharpNEAT.Utility.Log("Begin performing generation " + _currentGeneration);
 
                 // Progress forward by one generation. Perform one generation/iteration of the evolution algorithm. 
                 yield return PerformOneGeneration();
 
                 UnitySharpNEAT.Utility.Log("Performed generation " + _currentGeneration);
-
                 if (UpdateTest())
                 {
                     _prevUpdateGeneration = _currentGeneration;
@@ -279,10 +284,10 @@ namespace SharpNeat.EvolutionAlgorithms
         /// </summary>
         private bool UpdateTest()
         {
-            if(UpdateMode.Generational == _updateScheme.UpdateMode) {
+            if(UpdateMode.Generational == _updateScheme.UpdateMode ) {
                 return (_currentGeneration - _prevUpdateGeneration) >= _updateScheme.Generations;
             }
-            
+
             return (DateTime.Now.Ticks - _prevUpdateTimeTick) >= _updateScheme.TimeSpan.Ticks;
         }
 

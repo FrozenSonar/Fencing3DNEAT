@@ -40,11 +40,16 @@ public class FencerAIController : UnitController
         public int LastPiece = 0;
         public int WallHits = 0;
 
+        // fencer stats to keep track
+        public float currentLeftAttemptedHits = 0;
+        public float currentRightAttemptedHits = 0;
+
+
         private bool _movingForward = true;
 
 
         // cache the initial transform of this unit, to reset it on deactivation
-        private Vector3 _initialPosition = new Vector3(10,1,0); // spawn position
+        private Vector3 _initialPosition = new Vector3(10,0,0); // spawn position
         private Quaternion _initialRotation = default;
 
        
@@ -53,7 +58,13 @@ public class FencerAIController : UnitController
         private GameObject otherfencer1;
         private GameObject sabreBlade;
         public SabreHit sabreHitScript;
+
+        public NeatUI neatCounter;
         
+        GameObject leftTarget;
+        changeMaterial changeLeftColor;
+        GameObject rightTarget;
+        changeMaterial changeRightColor;
 
      private void Start()
         {
@@ -62,6 +73,13 @@ public class FencerAIController : UnitController
             sabreHitScript = GameObject.Find("Sword_blade").GetComponent<SabreHit>();
             fencer1 = GameObject.FindGameObjectsWithTag("Fencer")[0];
             otherfencer1 = GameObject.FindGameObjectsWithTag("Other Fencer")[0];
+            neatCounter = GameObject.Find("NeatUI").GetComponent<NeatUI>();
+
+            leftTarget = GameObject.Find("LeftTarget");
+            changeLeftColor = leftTarget.GetComponent<changeMaterial>();
+
+            rightTarget = GameObject.Find("RightTarget");
+            changeRightColor = rightTarget.GetComponent<changeMaterial>();
 
             if(transform.tag == "Fencer") {
                 print("I am fencer " + transform.tag);
@@ -222,15 +240,7 @@ public class FencerAIController : UnitController
         //someMoveSpeed = outputSignalArray[1];
         //...
 
-            //var steer = (float)outputSignalArray[0] * 2 - 1;
-            //var gas = (float)outputSignalArray[1] * 2 - 1;
-
-            //var moveDist = gas * Speed * Time.deltaTime;
-            //var turnAngle = steer * TurnSpeed * Time.deltaTime * gas;
-
-            //transform.Rotate(new Vector3(0, turnAngle, 0));
-            //transform.Translate(Vector3.forward * moveDist);
-
+      
             var horizontalMove = (float)outputSignalArray[0];
             var verticalMove = (float)outputSignalArray[1];
             speed = (float)outputSignalArray[2];
@@ -242,10 +252,7 @@ public class FencerAIController : UnitController
             var attackRange2 = (float)outputSignalArray[7];
 
             //print("I am attackRange: " + attackRange);
-            //print("I am horizontalMove: "+ horizontalMove);
-            //print("I am horizontalMove 2: "+ horizontalMove2);
-            //print("Close Range: "+ closeRange);
-            //print("I am speed: "+ speed);
+
             
             //Gravity Working
             if (characterController.isGrounded) {
@@ -278,6 +285,7 @@ public class FencerAIController : UnitController
 
             if (frontSensor >= 0.6) {
                 Stab();
+
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stabbing")) {
                     animator.speed = 2;
                 }
@@ -295,17 +303,51 @@ public class FencerAIController : UnitController
             animator.SetFloat("Speed", speed);
             animator.SetBool("isWalking", verticalMove != 0 || horizontalMove != 0);
             animator.SetBool("isBackwards", verticalMove < 0 || horizontalMove < 0);
+            
+            if(neatCounter.leftHit == 1 || neatCounter.rightHit == 1) {
+                transform.position = _initialPosition;
+            }
+
+            if(neatCounter.leftHit == 1) {
+                changeLeftColor.colortoGreen();
+            }
+            if(neatCounter.rightHit == 1) {
+                changeRightColor.colortoGreen();
+            }
+
+            if(neatCounter.leftHit == 0 && neatCounter.rightHit == 0){
+                changeLeftColor.colortoBlue();
+                changeRightColor.colortoBlue();
+            }
 
     }
+
+    
 
     public void Stab()
     {
         animator.SetTrigger("goStab");
+        if (transform.tag == "Other Fencer"){
+                    currentLeftAttemptedHits++;
+                    print("Left Attempt Hits: " + currentLeftAttemptedHits);
+        }
+        if (transform.tag == "Fencer"){
+                    currentRightAttemptedHits++;
+                    print("Right Attempt Hits: " + currentRightAttemptedHits);
+        }
     }   
 
     public void StabCombo()
     {
         animator.SetTrigger("goStabCombo");
+        if (transform.tag == "Other Fencer"){
+                    currentLeftAttemptedHits++;
+                    print("Left Attempt Hits: " + currentLeftAttemptedHits);
+        }
+        if (transform.tag == "Fencer"){
+                    currentRightAttemptedHits++;
+                    print("Right Attempt Hits: " + currentRightAttemptedHits);
+        }
     }   
 
     public void Flip()
@@ -316,6 +358,11 @@ public class FencerAIController : UnitController
      public void Dodge()
     {
         animator.SetTrigger("goDodge");
+    }
+
+    public void Idle()
+    {
+        animator.SetTrigger("goIdle");
     }
 
 
@@ -329,7 +376,7 @@ public class FencerAIController : UnitController
             {
                 return 0;
             }
-
+            
             int piece = CurrentPiece;
             if (CurrentPiece == 0)
             {
@@ -366,6 +413,9 @@ public class FencerAIController : UnitController
                 WallHits = 0;
                 sabreHitScript.currentLeftHit = 0;
                 sabreHitScript.currentRightHit = 0;
+
+                currentLeftAttemptedHits = 0;
+                currentRightAttemptedHits = 0;
                 _movingForward = true;
 
             // hide/show children 
