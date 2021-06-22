@@ -1974,6 +1974,7 @@ MonoBehaviour:
   SabreRange: 15
   currentLeftHit: 0
   currentRightHit: 0
+  neatCounter: {fileID: 0}
 --- !u!136 &1834928199
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2534,7 +2535,13 @@ MonoBehaviour:
   CurrentPiece: 0
   LastPiece: 0
   WallHits: 0
+  currentLeftAttemptedHits: 0
+  currentRightAttemptedHits: 0
   sabreHitScript: {fileID: 0}
+  neatCounter: {fileID: 0}
+  horizontalMove: 0
+  verticalMove: 0
+  attackRange: 0
 --- !u!1 &980721565589626327
 GameObject:
   m_ObjectHideFlags: 0
