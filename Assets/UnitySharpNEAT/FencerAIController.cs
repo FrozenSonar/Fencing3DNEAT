@@ -226,6 +226,11 @@ public class FencerAIController : UnitController
 
         
     }
+    
+    public float horizontalMove;
+    public float verticalMove;
+    public float attackRange;
+    private IEnumerator coroutine;
 
     protected override void UseBlackBoxOutpts(ISignalArray outputSignalArray)
     {
@@ -240,11 +245,11 @@ public class FencerAIController : UnitController
         //someMoveSpeed = outputSignalArray[1];
         //...
 
-      
-            var horizontalMove = (float)outputSignalArray[0];
-            var verticalMove = (float)outputSignalArray[1];
+            animator.enabled = true;
+            horizontalMove = (float)outputSignalArray[0];
+            verticalMove = (float)outputSignalArray[1];
             speed = (float)outputSignalArray[2];
-            var attackRange = (float)outputSignalArray[3];
+            attackRange = (float)outputSignalArray[3];
 
             var horizontalMove2 = (float)outputSignalArray[4];
             var verticalMove2 = (float)outputSignalArray[5];
@@ -268,7 +273,7 @@ public class FencerAIController : UnitController
                 speed = speed2;
                 attackRange = attackRange2;
             }
-
+            /*
              if (frontSensor >= 0.87) {
                 animator.SetFloat("AttackSpeed", speed);
                 StabCombo();
@@ -292,8 +297,9 @@ public class FencerAIController : UnitController
                 else {
                     animator.speed = 1;
                 }
-            }
+            } */
             
+
             speed = Mathf.Clamp(speed, 0, 1);
             Vector3 gravityMove = new Vector3(0, verticalSpeed, 0);
         
@@ -304,8 +310,20 @@ public class FencerAIController : UnitController
             animator.SetBool("isWalking", verticalMove != 0 || horizontalMove != 0);
             animator.SetBool("isBackwards", verticalMove < 0 || horizontalMove < 0);
             
+            coroutine = FencerRoutine();
+            StartCoroutine(coroutine);
+
+            
+            Vector3 _currentPosition = transform.position;
             if(neatCounter.leftHit == 1 || neatCounter.rightHit == 1) {
+                
+                //transform.position = _currentPosition;
+
                 transform.position = _initialPosition;
+                animator.SetFloat("Speed", 0);
+                StopCoroutine(coroutine);
+                animator.enabled = false;
+                animator.Play("Idle", -1, 0f);
             }
 
             if(neatCounter.leftHit == 1) {
@@ -322,18 +340,54 @@ public class FencerAIController : UnitController
 
     }
 
-    
+
+    IEnumerator FencerRoutine(){    
+
+            if (frontSensor >= 0.87) {
+                animator.SetFloat("AttackSpeed", speed);
+                StabCombo();
+                yield return null;
+                
+            }
+
+            if (bladeSensor >= 0.87) {
+                animator.SetFloat("DodgeSpeed", attackRange);
+                Dodge();
+                yield return null;
+                 
+            }
+            
+            /*
+            if (sphereSensor <= 0.6) {
+                Flip();
+                yield return null;
+            } */
+
+            if (frontSensor >= 0.6) {
+                
+                Stab();
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stabbing")) {
+                    animator.speed = 2;
+                }
+                else {
+                    animator.speed = 1;
+                }
+                yield return null;
+                
+            }
+
+    }
 
     public void Stab()
     {
         animator.SetTrigger("goStab");
         if (transform.tag == "Other Fencer"){
                     currentLeftAttemptedHits++;
-                    print("Left Attempt Hits: " + currentLeftAttemptedHits);
+                    //print("Left Attempt Hits: " + currentLeftAttemptedHits);
         }
         if (transform.tag == "Fencer"){
                     currentRightAttemptedHits++;
-                    print("Right Attempt Hits: " + currentRightAttemptedHits);
+                    //print("Right Attempt Hits: " + currentRightAttemptedHits);
         }
     }   
 
@@ -342,11 +396,11 @@ public class FencerAIController : UnitController
         animator.SetTrigger("goStabCombo");
         if (transform.tag == "Other Fencer"){
                     currentLeftAttemptedHits++;
-                    print("Left Attempt Hits: " + currentLeftAttemptedHits);
+                    //print("Left Attempt Hits: " + currentLeftAttemptedHits);
         }
         if (transform.tag == "Fencer"){
                     currentRightAttemptedHits++;
-                    print("Right Attempt Hits: " + currentRightAttemptedHits);
+                    //print("Right Attempt Hits: " + currentRightAttemptedHits);
         }
     }   
 

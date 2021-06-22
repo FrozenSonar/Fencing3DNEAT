@@ -49,17 +49,19 @@ public class SabreHit : MonoBehaviour
 
         if (col.gameObject.tag == "Fencer") // Left side
                             {
-                            
-                                currentLeftHit = 1;
-                                uiCounter.allLeftHit += 1;
-                                
+                                if (currentLeftHit == 0 && currentRightHit == 0) {
+                                    currentLeftHit = 1;
+                                    uiCounter.allLeftHit += 1;
+                                }
+                                     
                             }
                 if (col.gameObject.tag == "Other Fencer") // Right Side
                             {
-
-                               
-                                currentRightHit = 1;
-                                uiCounter.allRightHit += 1;
+                                if (currentLeftHit == 0 && currentRightHit == 0) {
+                                    currentRightHit = 1;
+                                    uiCounter.allRightHit += 1;
+                                }
+                                
                              
                             }
 
@@ -71,7 +73,7 @@ public class SabreHit : MonoBehaviour
                 if (col.gameObject.tag == "Fencer") // Left side
                             {
                                 //If the GameObject has the same tag as specified, output this message in the console
-                                changeLeftColor.colortoGreen();
+                                //changeLeftColor.colortoGreen();
                                 
                                 //print(transform.root.tag);
                                 //print("I've stabbed a Fencer!!");
@@ -81,7 +83,7 @@ public class SabreHit : MonoBehaviour
                 if (col.gameObject.tag == "Other Fencer") // Right Side
                             {
                                 //If the GameObject has the same tag as specified, output this message in the console
-                                changeRightColor.colortoGreen();
+                               // changeRightColor.colortoGreen();
                                 
                                 //print(transform.root.tag);
                                 //print("I've stabbed a Fencer!!");
