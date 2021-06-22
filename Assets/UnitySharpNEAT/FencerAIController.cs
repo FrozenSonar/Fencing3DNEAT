@@ -319,7 +319,7 @@ public class FencerAIController : UnitController
                 
                 //transform.position = _currentPosition;
 
-                transform.position = _initialPosition;
+                //transform.position = _initialPosition;
                 animator.SetFloat("Speed", 0);
                 StopCoroutine(coroutine);
                 animator.enabled = false;

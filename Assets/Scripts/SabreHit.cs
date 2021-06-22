@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnitySharpNEAT;
 
 public class SabreHit : MonoBehaviour
 {
@@ -22,6 +22,7 @@ public class SabreHit : MonoBehaviour
     public int currentLeftHit = 0;
     public int currentRightHit = 0;
 
+    public NeatUI neatCounter;
     RaycastHit hit;
 
     void Update()
@@ -49,7 +50,7 @@ public class SabreHit : MonoBehaviour
 
         if (col.gameObject.tag == "Fencer") // Left side
                             {
-                                if (currentLeftHit == 0 && currentRightHit == 0) {
+                                if (neatCounter.leftHit == 0 && neatCounter.rightHit == 0) {
                                     currentLeftHit = 1;
                                     uiCounter.allLeftHit += 1;
                                 }
@@ -57,7 +58,7 @@ public class SabreHit : MonoBehaviour
                             }
                 if (col.gameObject.tag == "Other Fencer") // Right Side
                             {
-                                if (currentLeftHit == 0 && currentRightHit == 0) {
+                                if (neatCounter.leftHit == 0 && neatCounter.rightHit == 0) {
                                     currentRightHit = 1;
                                     uiCounter.allRightHit += 1;
                                 }
@@ -109,6 +110,9 @@ public class SabreHit : MonoBehaviour
 
         rightTarget = GameObject.Find("RightTarget");
         changeRightColor = rightTarget.GetComponent<changeMaterial>();
+
+        
+        neatCounter = GameObject.Find("NeatUI").GetComponent<NeatUI>();
     }
     // Update is called once per frame
     
