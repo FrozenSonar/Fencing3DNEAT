@@ -10,7 +10,7 @@ using SharpNeat.Phenomes;
 
 public class FencerAIController : UnitController
 {
-
+#region // Declare Variables
         // general control variables
         //public float Speed = 5f;
         public float TurnSpeed = 180f;
@@ -57,14 +57,16 @@ public class FencerAIController : UnitController
         private GameObject fencer1;
         private GameObject otherfencer1;
         private GameObject sabreBlade;
-        public SabreHit sabreHitScript;
 
+        public SabreHit sabreHitScript;
+        public hitCounter uiCounter;
         public NeatUI neatCounter;
         
         GameObject leftTarget;
         changeMaterial changeLeftColor;
         GameObject rightTarget;
         changeMaterial changeRightColor;
+#endregion
 
      private void Start()
         {
@@ -74,7 +76,7 @@ public class FencerAIController : UnitController
             fencer1 = GameObject.FindGameObjectsWithTag("Fencer")[0];
             otherfencer1 = GameObject.FindGameObjectsWithTag("Other Fencer")[0];
             neatCounter = GameObject.Find("NeatUI").GetComponent<NeatUI>();
-
+            uiCounter = GameObject.Find("Cube").GetComponent<hitCounter>();
             leftTarget = GameObject.Find("LeftTarget");
             changeLeftColor = leftTarget.GetComponent<changeMaterial>();
 
@@ -98,39 +100,36 @@ public class FencerAIController : UnitController
 
         }
     
+    private void Update() 
+    {
 
-
-    private void Update() {
-
-    //Draw Rays on Fencer for Debugging 
-    Debug.DrawRay(transform.position + transform.up + transform.up + transform.up, transform.TransformDirection(new Vector3(0, 0, 1).normalized) * SensorRange, Color.green); //Front Sensor Draw Ray
-    Debug.DrawRay(transform.position + transform.up + transform.up, transform.TransformDirection(new Vector3(0, 0, 1).normalized) * SensorRange, Color.green); //Right Front Sensor Draw Ray
-    Debug.DrawRay(transform.position + transform.up, transform.TransformDirection(new Vector3(0, 0, 1).normalized) * SensorRange, Color.green); //Left Front Sensor Draw Ray
-    
-    //print("Sabre Hits: " + sabreHitScript.timesHit);
-
-
-    //Forcing Fencer to look at each other
-     if(transform.tag == "Fencer")
-     {
-        Vector3 targetPosition = new Vector3( otherfencer1.transform.position.x, 
-                                                transform.position.y, 
-                                                otherfencer1.transform.position.z ) ;
-                transform.LookAt( targetPosition ) ;
-     }
-      
-       if(transform.tag == "Other Fencer")
-     {
-        Vector3 targetPosition = new Vector3( fencer1.transform.position.x, 
-                                                transform.position.y, 
-                                                fencer1.transform.position.z ) ;
-                transform.LookAt( targetPosition ) ;
-     }
-      
+        //Draw Rays on Fencer for Debugging 
+        Debug.DrawRay(transform.position + transform.up + transform.up + transform.up, transform.TransformDirection(new Vector3(0, 0, 1).normalized) * SensorRange, Color.green); //Front Sensor Draw Ray
+        Debug.DrawRay(transform.position + transform.up + transform.up, transform.TransformDirection(new Vector3(0, 0, 1).normalized) * SensorRange, Color.green); //Right Front Sensor Draw Ray
+        Debug.DrawRay(transform.position + transform.up, transform.TransformDirection(new Vector3(0, 0, 1).normalized) * SensorRange, Color.green); //Left Front Sensor Draw Ray
         
-     }
+        //print("Sabre Hits: " + sabreHitScript.timesHit);
+        //Forcing Fencer to look at each other
+            if(transform.tag == "Fencer")
+            {
+                Vector3 targetPosition = new Vector3( otherfencer1.transform.position.x, 
+                                                        transform.position.y, 
+                                                        otherfencer1.transform.position.z ) ;
+                        transform.LookAt( targetPosition ) ;
+            }
+            
+            if(transform.tag == "Other Fencer")
+            {
+                Vector3 targetPosition = new Vector3( fencer1.transform.position.x, 
+                                                        transform.position.y, 
+                                                        fencer1.transform.position.z ) ;
+                        transform.LookAt( targetPosition ) ;
+            }
+            
 
-     void OnDrawGizmosSelected()
+    }
+
+    void OnDrawGizmosSelected()
     {
         // Display the explosion radius when selected
         Gizmos.color = Color.red;
@@ -144,13 +143,10 @@ public class FencerAIController : UnitController
         // Feed inputs into the Neural Net (IBlackBox) by modifying its InputSignalArray
         // The size of the input array corresponds to NeatSupervisor.NetworkInputCount
 
-
         /* EXAMPLE */
         //inputSignalArray[0] = someSensorValue;
         //inputSignalArray[1] = someOtherSensorValue;
         //...
-            
-            
             
             int layerMask = (1 << 6);
             // Five raycasts into different directions each measure how far a wall is away.
@@ -171,9 +167,7 @@ public class FencerAIController : UnitController
                     //print("I've hit a: " + hit.collider.gameObject.name);
                     //print("Blade Sensor: " + bladeSensor);
                 }
-                
             }
-
 
             //Debug.DrawRay(tranform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange), Color.green);
             if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange))
@@ -187,11 +181,8 @@ public class FencerAIController : UnitController
                     //print("Sabre Sensor: " + sabreHitScript.sabreSensor);
                    
                 }
-                
-                
             }
 
-            
             //if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(0.1f, 0, 1).normalized), out hit, SensorRange))
             if (Physics.Raycast(transform.position + transform.up + transform.up, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange))
             {
@@ -200,7 +191,6 @@ public class FencerAIController : UnitController
                     chestSensor = 1 - hit.distance / SensorRange;
                     //print("Right Front Sensor: " + chestSensor);
                 }
-
             }
 
             //if (Physics.Raycast(transform.position + transform.up + transform.up + transform.up * 1.1f, transform.TransformDirection(new Vector3(-0.1f, 0, 1).normalized), out hit, SensorRange))
@@ -211,10 +201,7 @@ public class FencerAIController : UnitController
                     legsSensor = 1 - hit.distance / SensorRange;
                     //print("Left Front Sensor: " + legsSensor);
                 }
-
             }
-
-
 
             // modify the ISignalArray object of the blackbox that was passed into this function, by filling it with the sensor information.
             // Make sure that NeatSupervisor.NetworkInputCount fits the amount of sensors you have
@@ -223,8 +210,6 @@ public class FencerAIController : UnitController
             inputSignalArray[2] = chestSensor;
             inputSignalArray[3] = sphereSensor;
             inputSignalArray[4] = bladeSensor;
-
-        
     }
     
     public float horizontalMove;
@@ -303,7 +288,6 @@ public class FencerAIController : UnitController
                 changeLeftColor.colortoBlue();
                 changeRightColor.colortoBlue();
             }
-
     }
 
     public bool isBothHit(){
@@ -315,7 +299,8 @@ public class FencerAIController : UnitController
         }
     }
 
-    IEnumerator FencerRoutine(){    
+    IEnumerator FencerRoutine()
+    {    
             if (headSensor >= 0.87) {
                 animator.SetFloat("AttackSpeed", speed);
                 StabCombo();
@@ -369,7 +354,6 @@ public class FencerAIController : UnitController
                 }
                 yield return null;
             }
-
     }
 
     public void Stab()
@@ -397,13 +381,12 @@ public class FencerAIController : UnitController
         animator.SetTrigger("goIdle");
     }
 
-
     public override float GetFitness()
     {
         // Called during the evaluation phase (at the end of each trail)
-
         // The performance of this unit, i.e. it's fitness, is retrieved by this function.
         // Implement a meaningful fitness function here
+            /*
             if (Lap == 1 && CurrentPiece == 0)
             {
                 return 0;
@@ -416,6 +399,40 @@ public class FencerAIController : UnitController
             }
 
             float fit = Lap * piece - WallHits * 0.2f;
+            if (fit > 0)
+            {
+                return fit;
+            }
+            return 0;
+            */
+            float fit = 0;
+            var leftAttempt = currentLeftAttemptedHits;
+            var leftAllHits = uiCounter.allLeftHit;
+            var rightAttempt = currentRightAttemptedHits;
+            var rightAllHits = uiCounter.allRightHit;
+
+            if (leftAttempt == 0){
+                leftAttempt = 1;
+            }
+            if (leftAllHits == 0){
+                leftAllHits = 1;
+            }
+
+            if (rightAttempt == 0){
+                rightAttempt = 1;
+            }
+            if (rightAllHits == 0){
+                rightAllHits = 1;
+            }
+
+            if (transform.tag == "Fencer") {
+                fit = neatCounter.leftHit - neatCounter.rightHit + (leftAllHits * (leftAttempt/leftAllHits));
+            }
+
+            if (transform.tag == "Other Fencer") {
+                fit = neatCounter.rightHit - neatCounter.leftHit + (rightAllHits * (rightAttempt/rightAllHits));
+            }
+
             if (fit > 0)
             {
                 return fit;
