@@ -23,9 +23,9 @@ public class FencerAIController : UnitController
         public Animation anim;
 
         //sensors
-        public float frontSensor;
-        public float leftFrontSensor;
-        public float rightFrontSensor;
+        public float headSensor;
+        public float legsSensor;
+        public float chestSensor;
         public float bladeSensor;
         public float sphereSensor;
 
@@ -182,8 +182,8 @@ public class FencerAIController : UnitController
                 
                 if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
                 {
-                    frontSensor = 1 - hit.distance / SensorRange;
-                    //print("Front Sensor: " + frontSensor);
+                    headSensor = 1 - hit.distance / SensorRange;
+                    //print("Front Sensor: " + headSensor);
                     //print("Sabre Sensor: " + sabreHitScript.sabreSensor);
                    
                 }
@@ -197,8 +197,8 @@ public class FencerAIController : UnitController
             {
                 if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
                 {
-                    rightFrontSensor = 1 - hit.distance / SensorRange;
-                    //print("Right Front Sensor: " + rightFrontSensor);
+                    chestSensor = 1 - hit.distance / SensorRange;
+                    //print("Right Front Sensor: " + chestSensor);
                 }
 
             }
@@ -208,8 +208,8 @@ public class FencerAIController : UnitController
             {
                 if (hit.collider.CompareTag("Other Fencer") || hit.collider.CompareTag("Fencer"))
                 {
-                    leftFrontSensor = 1 - hit.distance / SensorRange;
-                    //print("Left Front Sensor: " + leftFrontSensor);
+                    legsSensor = 1 - hit.distance / SensorRange;
+                    //print("Left Front Sensor: " + legsSensor);
                 }
 
             }
@@ -218,9 +218,9 @@ public class FencerAIController : UnitController
 
             // modify the ISignalArray object of the blackbox that was passed into this function, by filling it with the sensor information.
             // Make sure that NeatSupervisor.NetworkInputCount fits the amount of sensors you have
-            inputSignalArray[0] = frontSensor;
-            inputSignalArray[1] = leftFrontSensor;
-            inputSignalArray[2] = rightFrontSensor;
+            inputSignalArray[0] = headSensor;
+            inputSignalArray[1] = legsSensor;
+            inputSignalArray[2] = chestSensor;
             inputSignalArray[3] = sphereSensor;
             inputSignalArray[4] = bladeSensor;
 
@@ -235,11 +235,8 @@ public class FencerAIController : UnitController
     protected override void UseBlackBoxOutpts(ISignalArray outputSignalArray)
     {
         // Called by the base class after the inputs have been processed
-
         // Read the outputs and do something with them
         // The size of the array corresponds to NeatSupervisor.NetworkOutputCount
-
-
         /* EXAMPLE */
         //someMoveDirection = outputSignalArray[0];
         //someMoveSpeed = outputSignalArray[1];
@@ -255,10 +252,9 @@ public class FencerAIController : UnitController
             var verticalMove2 = (float)outputSignalArray[5];
             var speed2 = (float)outputSignalArray[6];
             var attackRange2 = (float)outputSignalArray[7];
-
+        
             //print("I am attackRange: " + attackRange);
 
-            
             //Gravity Working
             if (characterController.isGrounded) {
                 verticalSpeed = 0;
@@ -273,39 +269,11 @@ public class FencerAIController : UnitController
                 speed = speed2;
                 attackRange = attackRange2;
             }
-            /*
-             if (frontSensor >= 0.87) {
-                animator.SetFloat("AttackSpeed", speed);
-                StabCombo();
-            }
-
-            if (bladeSensor >= 0.87) {
-                animator.SetFloat("DodgeSpeed", attackRange);
-                Dodge();
-            }
-
-            if (sphereSensor <= 0.7) {
-                 Flip();
-            }
-
-            if (frontSensor >= 0.6) {
-                Stab();
-
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stabbing")) {
-                    animator.speed = 2;
-                }
-                else {
-                    animator.speed = 1;
-                }
-            } */
-            
-
+           
             speed = Mathf.Clamp(speed, 0, 1);
             Vector3 gravityMove = new Vector3(0, verticalSpeed, 0);
-        
             Vector3 move = transform.forward * verticalMove + transform.right * horizontalMove;
             characterController.Move(speed * Time.deltaTime * move + gravityMove * Time.deltaTime);
-
             animator.SetFloat("Speed", speed);
             animator.SetBool("isWalking", verticalMove != 0 || horizontalMove != 0);
             animator.SetBool("isBackwards", verticalMove < 0 || horizontalMove < 0);
@@ -313,12 +281,8 @@ public class FencerAIController : UnitController
             coroutine = FencerRoutine();
             StartCoroutine(coroutine);
 
-            
-            Vector3 _currentPosition = transform.position;
+            //Stops Fencers when both are hit until new Generation
             if(isBothHit()) {
-                
-                //transform.position = _currentPosition;
-
                 //transform.position = _initialPosition;
                 animator.SetFloat("Speed", 0);
                 StopCoroutine(coroutine);
@@ -326,6 +290,7 @@ public class FencerAIController : UnitController
                 animator.Play("Idle", -1, 0f);
             }
 
+            //Target at the back goes to green when either side hits
             if(neatCounter.leftHit == 1) {
                 changeLeftColor.colortoGreen();
             }
@@ -333,6 +298,7 @@ public class FencerAIController : UnitController
                 changeRightColor.colortoGreen();
             }
 
+            //Target resets color to blue at every generation
             if(neatCounter.leftHit == 0 && neatCounter.rightHit == 0){
                 changeLeftColor.colortoBlue();
                 changeRightColor.colortoBlue();
@@ -350,7 +316,7 @@ public class FencerAIController : UnitController
     }
 
     IEnumerator FencerRoutine(){    
-            if (frontSensor >= 0.87) {
+            if (headSensor >= 0.87) {
                 animator.SetFloat("AttackSpeed", speed);
                 StabCombo();
                 
@@ -382,7 +348,7 @@ public class FencerAIController : UnitController
                 yield return null;
             } */
 
-            if (frontSensor >= 0.6) {
+            if (headSensor >= 0.6) {
                 
                 Stab();
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stabbing")) {
