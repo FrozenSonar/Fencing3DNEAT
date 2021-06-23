@@ -19,8 +19,8 @@ public class SabreHit : MonoBehaviour
     public float sabreSensor;
     public float SabreRange = 15;
 
-    public int currentLeftHit = 0;
-    public int currentRightHit = 0;
+    public float currentLeftHit = 0;
+    public float currentRightHit = 0;
 
     public NeatUI neatCounter;
     RaycastHit hit;
@@ -28,6 +28,7 @@ public class SabreHit : MonoBehaviour
     void Update()
     {
         //0.966f
+        /*
         Debug.DrawRay(transform.parent.position * 0.966f, transform.TransformDirection(new Vector3(0, 90, 0).normalized) * SabreRange, Color.red); //Front Sensor Draw Ray
         if (Physics.Raycast(transform.parent.position * 0.966f, transform.TransformDirection(new Vector3(0, 90, 0).normalized), out hit, SabreRange))
             {
@@ -42,6 +43,7 @@ public class SabreHit : MonoBehaviour
 
 
             }
+            */
     }
 
     //Detect collisions between the GameObjects with Colliders attached
@@ -52,15 +54,16 @@ public class SabreHit : MonoBehaviour
                             {
                                 if (neatCounter.leftHit == 0 && neatCounter.rightHit == 0) {
                                     currentLeftHit = 1;
-                                    uiCounter.allLeftHit += 1;
+                                    uiCounter.allLeftHit++;
                                 }
                                      
                             }
+
                 if (col.gameObject.tag == "Other Fencer") // Right Side
                             {
                                 if (neatCounter.leftHit == 0 && neatCounter.rightHit == 0) {
                                     currentRightHit = 1;
-                                    uiCounter.allRightHit += 1;
+                                    uiCounter.allRightHit++;
                                 }
                                 
                              

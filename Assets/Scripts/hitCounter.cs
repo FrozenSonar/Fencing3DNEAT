@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class hitCounter : MonoBehaviour
 {
-    public int allLeftHit = 0;
-    public int allRightHit = 0;
+    public float allLeftHit = 0;
+    public float allRightHit = 0;
     
     // Start is called before the first frame update
     void Start()
