@@ -75,6 +75,9 @@ namespace UnitySharpNEAT
             */
             GUI.Button(new Rect(10, Screen.height - 70, 110, 60), string.Format("Generation: {0}\nFitness: {1:0.0000}", _neatSupervisor.CurrentGeneration, _neatSupervisor.CurrentBestFitness));
             GUI.Button(new Rect(200, Screen.height - 70, 200, 60), string.Format("Left Fitness: {0:0.0000}\nRight Fitness: {1:0.0000}", leftFit, rightFit ));
+
+            Grapher.Log(leftFit, "Left Fitness");
+            Grapher.Log(rightFit, "Right Fitness");
         }
     }
 }
