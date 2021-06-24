@@ -28,6 +28,7 @@ namespace UnitySharpNEAT
         public float leftFit = 0;
         public float rightFit = 0;
         public float currentGen = 0;
+        public float lastGen = 0;
         hitCounter uiCounter;
         private GameObject fencer1;
         private GameObject otherfencer1;
@@ -43,6 +44,8 @@ namespace UnitySharpNEAT
             if (GUI.Button(new Rect(10, 10, 110, 40), "Start EA"))
             {
                 _neatSupervisor.StartEvolution();
+
+                lastGen = _neatSupervisor.CurrentGeneration;
             }
 
             fencer1 = GameObject.FindGameObjectsWithTag("Fencer")[0];
@@ -74,10 +77,16 @@ namespace UnitySharpNEAT
                 ExperimentIO.DeleteAllSaveFiles(_neatSupervisor.Experiment);
             }
             */
-            currentGen = _neatSupervisor.CurrentGeneration;
             GUI.Button(new Rect(10, Screen.height - 70, 110, 60), string.Format("Generation: {0}\nFitness: {1:0.0000}", _neatSupervisor.CurrentGeneration, _neatSupervisor.CurrentBestFitness));
             GUI.Button(new Rect(200, Screen.height - 70, 200, 60), string.Format("Left Fitness: {0:0.0000}\nRight Fitness: {1:0.0000}", leftFit, rightFit ));
+            currentGen = _neatSupervisor.CurrentGeneration;
 
+            
+
+            Grapher.Log(leftFit, "Left Fitness",currentGen);
+            Grapher.Log(rightFit, "Right Fitness",currentGen);
+            
+            
         }
     }
 }

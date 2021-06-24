@@ -46,11 +46,13 @@ public class fitnessChart : MonoBehaviour
     void Update()
     {
         float currentGen = neatCounter.currentGen;
+        float lastGen = neatCounter.lastGen;
         float time = Time.time;
+        
         if (lastTime + 2f < time)
         {
-            lastTime = time;
-            lastX += Random.value * 3f;
+            //lastTime = time;
+            //lastX += Random.value * 3f;
             Graph.DataSource.AddPointToCategoryRealtime("Player 1", currentGen, neatCounter.leftFit); // each time we call AddPointToCategory 
             Graph.DataSource.AddPointToCategoryRealtime("Player 2", currentGen, neatCounter.rightFit); // each time we call AddPointToCategory
         }
