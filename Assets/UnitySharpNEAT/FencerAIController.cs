@@ -309,18 +309,18 @@ public class FencerAIController : UnitController
 
                     if (transform.tag == "Other Fencer" && !(isBothHit())){
                         currentLeftAttemptedHits++;
-                        print("Left Attempt Hits: " + currentLeftAttemptedHits);
+                        //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit())){
                         currentRightAttemptedHits++;
-                        print("Right Attempt Hits: " + currentRightAttemptedHits);
+                        //print("Right Attempt Hits: " + currentRightAttemptedHits);
                     }
 
                 }
                 yield return null;
             }
 
-            if (bladeSensor >= 0.87) {
+            if (bladeSensor >= 0.94) {
                 animator.SetFloat("DodgeSpeed", attackRange);
                 Dodge();
                 yield return null;
@@ -340,11 +340,11 @@ public class FencerAIController : UnitController
 
                     if (transform.tag == "Other Fencer" && !(isBothHit())){
                         currentLeftAttemptedHits++;
-                        print("Left Attempt Hits: " + currentLeftAttemptedHits);
+                        //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit())){
                         currentRightAttemptedHits++;
-                        print("Right Attempt Hits: " + currentRightAttemptedHits);
+                        //print("Right Attempt Hits: " + currentRightAttemptedHits);
                     }
 
                     animator.speed = 2;

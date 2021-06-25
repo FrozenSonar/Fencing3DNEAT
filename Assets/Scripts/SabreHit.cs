@@ -50,24 +50,29 @@ public class SabreHit : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
 
+    if (neatCounter.leftHit == 0 && neatCounter.rightHit == 0){
         if (col.gameObject.tag == "Fencer") // Left side
-                            {
-                                if (neatCounter.leftHit == 0 && neatCounter.rightHit == 0) {
-                                    currentLeftHit = 1;
-                                    uiCounter.allLeftHit++;
-                                }
-                                     
-                            }
+                                    {
+                                        if (neatCounter.leftHit == 0 && neatCounter.rightHit == 0) {
+                                            currentLeftHit = 1;
+                                            uiCounter.allLeftHit++;
+                                            print("Hit left");
+                                        }
+                                            
+                                    }
 
-                if (col.gameObject.tag == "Other Fencer") // Right Side
-                            {
-                                if (neatCounter.leftHit == 0 && neatCounter.rightHit == 0) {
-                                    currentRightHit = 1;
-                                    uiCounter.allRightHit++;
-                                }
-                                
-                             
-                            }
+                        if (col.gameObject.tag == "Other Fencer") // Right Side
+                                    {
+                                        if (neatCounter.leftHit == 0 && neatCounter.rightHit == 0) {
+                                            currentRightHit = 1;
+                                            uiCounter.allRightHit++;
+                                            print("Hit right");
+                                        }
+                                        
+                                    
+                                    }
+    }
+        
 
         
     }
