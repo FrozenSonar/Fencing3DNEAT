@@ -44,6 +44,8 @@ public class FencerAIController : UnitController
         public float currentLeftAttemptedHits = 0;
         public float currentRightAttemptedHits = 0;
 
+        public float currentLeftDodges = 0;
+        public float currentRightDodges = 0;
 
         private bool _movingForward = true;
 
@@ -307,8 +309,8 @@ public class FencerAIController : UnitController
                 animator.SetFloat("AttackSpeed", speed);
                 StabCombo();
                 
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attackmidslw") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack&Parry") || animator.GetCurrentAnimatorStateInfo(0).IsName("AttackJmpFwd")) {
-
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attackmidslw") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack&Parry") || animator.GetCurrentAnimatorStateInfo(0).IsName("AttackJmpFwd")) 
+                {
                     if (transform.tag == "Other Fencer" && !(isBothHit())){
                         currentLeftAttemptedHits++;
                         //print("Left Attempt Hits: " + currentLeftAttemptedHits);
@@ -325,6 +327,19 @@ public class FencerAIController : UnitController
             if (bladeSensor >= 0.94) {
                 animator.SetFloat("DodgeSpeed", attackRange);
                 Dodge();
+                //if(animator.GetCurrentAnimatorStateInfo(0).IsName("ShortDodgeDwnwds") || animator.GetCurrentAnimatorStateInfo(0).IsName("DodgeBwds") || animator.GetCurrentAnimatorStateInfo(0).IsName("ShortDodgeFast")) 
+                //{
+                    if (transform.tag == "Other Fencer" && !(isBothHit())){
+                        currentLeftDodges++;
+                        print(currentLeftDodges);
+                    }
+                    if (transform.tag == "Fencer" && !(isBothHit())){
+                        currentRightDodges++;
+                        print(currentRightDodges);
+                    }
+                //}
+                
+
                 yield return null;
                 
             }
@@ -411,6 +426,8 @@ public class FencerAIController : UnitController
             float leftAllHits = uiCounter.allLeftHit;
             float rightAttempt = currentRightAttemptedHits;
             float rightAllHits = uiCounter.allRightHit;
+            float leftDodges = currentLeftDodges;
+            float rightDodges = currentRightDodges;
 
             if (leftAttempt == 0){
                 leftAttempt = 1;
@@ -427,14 +444,17 @@ public class FencerAIController : UnitController
             }
 
             //float fit = neatCounter.leftHit - neatCounter.rightHit + leftAllHits;
-            float fit = Mathf.Abs((neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits)) - (neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits)));
+            //float fit = Mathf.Abs((neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits)) - (neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits)));
+            float fit = 0;
             if (transform.tag == "Fencer") {
-                fit = Mathf.Abs((neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits)) - (neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits)));
+                //fit = Mathf.Abs((neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f))  - (neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)));
+                fit = Mathf.Abs( ((neatCounter.leftHit - neatCounter.rightHit) + leftAllHits + (leftAttempt/leftAllHits)  + (leftDodges * 0.25f)) + ((leftAllHits - rightAllHits) * 0.25f));
                 neatCounter.rightFit = fit;
             }
 
             if (transform.tag == "Other Fencer") {
-                fit = Mathf.Abs((neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits)) - (neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits)));
+                //fit = Mathf.Abs((neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)) - (neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f)));
+                fit = Mathf.Abs( ((neatCounter.rightHit - neatCounter.leftHit) + rightAllHits + (rightAttempt/rightAllHits)  + (rightDodges * 0.25f)) + ((rightAllHits - leftAllHits)* 0.25f));
                 neatCounter.leftFit = fit;
             }
 
@@ -470,6 +490,9 @@ public class FencerAIController : UnitController
 
                 currentLeftAttemptedHits = 0;
                 currentRightAttemptedHits = 0;
+                currentLeftDodges = 0;
+                currentRightDodges = 0;
+
                 _movingForward = true;
 
             // hide/show children 

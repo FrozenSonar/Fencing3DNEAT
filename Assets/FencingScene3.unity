@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9176,7 +9176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &680758797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10340,7 +10340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &764355534
 AudioListener:
   m_ObjectHideFlags: 0
@@ -16695,7 +16695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1226075345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29648,6 +29648,8 @@ MonoBehaviour:
   WallHits: 0
   currentLeftAttemptedHits: 0
   currentRightAttemptedHits: 0
+  currentLeftDodges: 0
+  currentRightDodges: 0
   sabreHitScript: {fileID: 0}
   uiCounter: {fileID: 0}
   neatCounter: {fileID: 0}

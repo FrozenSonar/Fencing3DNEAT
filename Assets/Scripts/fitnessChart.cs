@@ -51,10 +51,10 @@ public class fitnessChart : MonoBehaviour
         
         if (lastTime + 2f < time)
         {
-            //lastTime = time;
-            //lastX += Random.value * 3f;
-            Graph.DataSource.AddPointToCategoryRealtime("Player 1", currentGen, neatCounter.leftFit); // each time we call AddPointToCategory 
-            Graph.DataSource.AddPointToCategoryRealtime("Player 2", currentGen, neatCounter.rightFit); // each time we call AddPointToCategory
+            lastTime = time;
+            lastX += Random.value * 3f;
+            Graph.DataSource.AddPointToCategoryRealtime("Player 1", lastX, neatCounter.leftFit); // each time we call AddPointToCategory 
+            Graph.DataSource.AddPointToCategoryRealtime("Player 2", lastX, neatCounter.rightFit); // each time we call AddPointToCategory
         }
         
        
