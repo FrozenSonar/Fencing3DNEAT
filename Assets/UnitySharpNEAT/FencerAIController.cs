@@ -331,10 +331,12 @@ public class FencerAIController : UnitController
                 //{
                     if (transform.tag == "Other Fencer" && !(isBothHit())){
                         currentLeftDodges++;
+                        uiCounter.allLeftDodges++;
                         print(currentLeftDodges);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit())){
                         currentRightDodges++;
+                        uiCounter.allRightDodges++;
                         print(currentRightDodges);
                     }
                 //}
@@ -428,6 +430,8 @@ public class FencerAIController : UnitController
             float rightAllHits = uiCounter.allRightHit;
             float leftDodges = currentLeftDodges;
             float rightDodges = currentRightDodges;
+            float leftAllDodges = uiCounter.allLeftDodges;
+            float rightAllDodges = uiCounter.allRightDodges;
 
             if (leftAttempt == 0){
                 leftAttempt = 1;
@@ -443,20 +447,29 @@ public class FencerAIController : UnitController
                 rightAllHits = 1;
             }
 
+            if (leftAllDodges == 0){
+                leftAllDodges = 1;
+            }
+            if (rightAllDodges == 0){
+                rightAllDodges = 1;
+            }
+
             //float fit = neatCounter.leftHit - neatCounter.rightHit + leftAllHits;
             //float fit = Mathf.Abs((neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits)) - (neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits)));
             float fit = 0;
+            
+            if (transform.tag == "Other Fencer") {
+                //fit = Mathf.Abs((neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)) - (neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f)));
+                fit = Mathf.Abs(((neatCounter.leftHit - neatCounter.rightHit) + leftAllHits + (leftAttempt/leftAllHits) + ((leftAllHits - rightAllHits) * 0.2f)) - ((rightDodges/rightAllDodges) + rightDodges)) ;
+                neatCounter.leftFit = fit;
+            }
+
             if (transform.tag == "Fencer") {
                 //fit = Mathf.Abs((neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f))  - (neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)));
-                fit = Mathf.Abs( ((neatCounter.leftHit - neatCounter.rightHit) + leftAllHits + (leftAttempt/leftAllHits)  + (leftDodges * 0.25f)) + ((leftAllHits - rightAllHits) * 0.25f));
+                fit = Mathf.Abs(((neatCounter.rightHit - neatCounter.leftHit) + rightAllHits + (rightAttempt/rightAllHits) + ((rightAllHits - leftAllHits)* 0.2f)) - ((leftDodges/leftAllDodges) + leftDodges));
                 neatCounter.rightFit = fit;
             }
 
-            if (transform.tag == "Other Fencer") {
-                //fit = Mathf.Abs((neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)) - (neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f)));
-                fit = Mathf.Abs( ((neatCounter.rightHit - neatCounter.leftHit) + rightAllHits + (rightAttempt/rightAllHits)  + (rightDodges * 0.25f)) + ((rightAllHits - leftAllHits)* 0.25f));
-                neatCounter.leftFit = fit;
-            }
 
             if (fit > 0)
             {

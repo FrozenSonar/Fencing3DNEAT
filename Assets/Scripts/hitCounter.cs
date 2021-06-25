@@ -6,7 +6,8 @@ public class hitCounter : MonoBehaviour
 {
     public float allLeftHit = 0;
     public float allRightHit = 0;
-    
+    public float allLeftDodges = 0;
+    public float allRightDodges = 0;
     // Start is called before the first frame update
     void Start()
     {
