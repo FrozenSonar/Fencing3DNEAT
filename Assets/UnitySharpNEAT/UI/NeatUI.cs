@@ -29,6 +29,7 @@ namespace UnitySharpNEAT
         public float rightFit = 0;
         public float currentGen = 0;
         public float lastGen = 0;
+        public bool isBothHitUI = false;
         hitCounter uiCounter;
         private GameObject fencer1;
         private GameObject otherfencer1;

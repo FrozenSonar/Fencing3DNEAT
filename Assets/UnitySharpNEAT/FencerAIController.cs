@@ -292,9 +292,11 @@ public class FencerAIController : UnitController
 
     public bool isBothHit(){
         if(neatCounter.leftHit == 1 || neatCounter.rightHit == 1){
+            neatCounter.isBothHitUI = true;
             return true;
         }
         else {
+            neatCounter.isBothHitUI = false;
             return false;
         }
     }
