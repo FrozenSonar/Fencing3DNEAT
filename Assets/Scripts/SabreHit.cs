@@ -50,13 +50,12 @@ public class SabreHit : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
 
-    
+    /*
         if (col.gameObject.tag == "Fencer") // Left side
                                     {
                                         if (!neatCounter.isBothHitUI) {
                                             currentLeftHit = 1;
                                             uiCounter.allLeftHit++;
-                                            print("Hit left");
                                         }
                                             
                                     }
@@ -66,39 +65,36 @@ public class SabreHit : MonoBehaviour
                                         if (!neatCounter.isBothHitUI) {
                                             currentRightHit = 1;
                                             uiCounter.allRightHit++;
-                                            print("Hit right");
                                         }
                                         
                                     
                                     }
     
-        
+        */
 
         
     }
 
      private void OnCollisionStay(Collision col) {
 
-                if (col.gameObject.tag == "Fencer") // Left side
-                            {
-                                //If the GameObject has the same tag as specified, output this message in the console
-                                //changeLeftColor.colortoGreen();
-                                
-                                //print(transform.root.tag);
-                                //print("I've stabbed a Fencer!!");
-                           
-                                //print(currentLeftHit +"\n" + allLeftHit);
-                            }
-                if (col.gameObject.tag == "Other Fencer") // Right Side
-                            {
-                                //If the GameObject has the same tag as specified, output this message in the console
-                               // changeRightColor.colortoGreen();
-                                
-                                //print(transform.root.tag);
-                                //print("I've stabbed a Fencer!!");
-                              
-                               // print(currentRightHit +"\n" + allRightHit);
-                            }
+               if (col.gameObject.tag == "Fencer") // Left side
+                                    {
+                                        if (!neatCounter.isBothHitUI) {
+                                            currentLeftHit = 1;
+                                            uiCounter.allLeftHit++;
+                                        }
+                                            
+                                    }
+
+                        if (col.gameObject.tag == "Other Fencer") // Right Side
+                                    {
+                                        if (!neatCounter.isBothHitUI) {
+                                            currentRightHit = 1;
+                                            uiCounter.allRightHit++;
+                                        }
+                                        
+                                    
+                                    }
 
 
             }
