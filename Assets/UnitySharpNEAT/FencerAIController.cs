@@ -340,8 +340,6 @@ public class FencerAIController : UnitController
                         print(currentRightDodges);
                     }
                 //}
-                
-
                 yield return null;
                 
             }
