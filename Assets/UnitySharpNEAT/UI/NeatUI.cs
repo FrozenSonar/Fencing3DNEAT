@@ -8,6 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace UnitySharpNEAT
 {
@@ -16,10 +17,15 @@ namespace UnitySharpNEAT
         [SerializeField] 
         private NeatSupervisor _neatSupervisor;
 
+        [SerializeField]
+        public GameObject leftScreen;
+        
+        [SerializeField]
+        private GameObject rightScreen;
+        
         /// <summary>
         /// Display simple Onscreen buttons for quickly accessing ceratain lifecycle funtions and to display generation info.
         /// </summary>
-
 
         public SabreHit sabreHitLeftScripts;
         public SabreHit sabreHitRightScripts;
@@ -58,11 +64,27 @@ namespace UnitySharpNEAT
             rightHit = sabreHitRightScripts.currentRightHit;
             //sabreHitScripts = GameObject.Find("Sword_blade").GetComponent<SabreHit>();
             
+            leftScreen.GetComponent<TextMeshPro>().text = uiCounter.allLeftHit.ToString();
+            rightScreen.GetComponent<TextMeshPro>().text = uiCounter.allRightHit.ToString();
+
+            if(uiCounter.allLeftHit > uiCounter.allRightHit) {
+                leftScreen.GetComponent<TextMeshPro>().color = new Color32(250, 204, 16, 255);
+                rightScreen.GetComponent<TextMeshPro>().color = new Color32(15, 250, 190, 255);
+            }
+            if(uiCounter.allRightHit > uiCounter.allLeftHit){
+                rightScreen.GetComponent<TextMeshPro>().color = new Color32(250, 204, 16, 255);
+                leftScreen.GetComponent<TextMeshPro>().color = new Color32(15, 250, 190, 255);
+            }
+            if (uiCounter.allRightHit == uiCounter.allLeftHit) {
+                leftScreen.GetComponent<TextMeshPro>().color = new Color32(15, 250, 190, 255);
+                rightScreen.GetComponent<TextMeshPro>().color = new Color32(15, 250, 190, 255);
+            }
+
            
-            GUI.Button(new Rect(200,10, 130, 30),"Current Left Hit: " + leftHit);
-            GUI.Button(new Rect(200,40, 130, 30),"All Left Hits: " + uiCounter.allLeftHit);
-            GUI.Button(new Rect(500,10, 130, 30),"Current Right Hit: " + rightHit);
-            GUI.Button(new Rect(500,40, 130, 30),"All Right Hits: " +uiCounter.allRightHit);
+            //GUI.Button(new Rect(200,10, 130, 30),"Current Left Hit: " + leftHit);
+            //GUI.Button(new Rect(200,40, 130, 30),"All Left Hits: " + uiCounter.allLeftHit);
+            //GUI.Button(new Rect(500,10, 130, 30),"Current Right Hit: " + rightHit);
+            //GUI.Button(new Rect(500,40, 130, 30),"All Right Hits: " +uiCounter.allRightHit);
             
             /*
             if (GUI.Button(new Rect(10, 60, 110, 40), "Stop + save EA"))
