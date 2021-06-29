@@ -94,8 +94,6 @@ public class FencerAIController : UnitController
                 sabreHitScript = otherfencer1.GetComponentInChildren<SabreHit>();
             }
             
-
-
             _initialPosition = transform.position;
             _initialRotation = transform.rotation;
             transform.localScale = new Vector3(1,1,1);
@@ -305,6 +303,7 @@ public class FencerAIController : UnitController
 
     IEnumerator FencerRoutine()
     {    
+      
             if (headSensor >= 0.87) {
                 animator.SetFloat("AttackSpeed", speed);
                 StabCombo();
@@ -324,6 +323,7 @@ public class FencerAIController : UnitController
                 yield return null;
             }
 
+        
             if (bladeSensor >= 0.94) {
                 animator.SetFloat("DodgeSpeed", attackRange);
                 Dodge();
@@ -344,12 +344,28 @@ public class FencerAIController : UnitController
                 
             }
             
-            /*
-            if (sphereSensor <= 0.6) {
-                Flip();
-                yield return null;
-            } */
+            
+            if (sphereSensor >= 0.6) {
+                animator.SetFloat("SpecialSpeed", attackRange);
+                Special();
+                
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_fast_Rlow_1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Sword1h_Taunt_mark_2") || animator.GetCurrentAnimatorStateInfo(0).IsName("Sword1h_Taunt_mark_3")|| animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Place_snap_Ldown_2") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_Achilles")) 
+                {
+                    if (transform.tag == "Other Fencer" && !(isBothHit())){
+                        currentLeftAttemptedHits++;
+                        //print("Left Attempt Hits: " + currentLeftAttemptedHits);
+                    }
+                    if (transform.tag == "Fencer" && !(isBothHit())){
+                        currentRightAttemptedHits++;
+                        //print("Right Attempt Hits: " + currentRightAttemptedHits);
+                    }
 
+                }
+
+                yield return null;
+            } 
+
+    
             if (headSensor >= 0.6) {
                 
                 Stab();
@@ -383,9 +399,9 @@ public class FencerAIController : UnitController
         animator.SetTrigger("goStabCombo");
     }   
 
-    public void Flip()
+    public void Special()
     {
-        animator.SetTrigger("goFlip");
+        animator.SetTrigger("goSpecial");
     }
 
      public void Dodge()
