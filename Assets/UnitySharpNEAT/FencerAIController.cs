@@ -324,7 +324,7 @@ public class FencerAIController : UnitController
             }
 
         
-            if (bladeSensor >= 0.98f) {
+            if (bladeSensor >= 0.985f) {
                 animator.SetFloat("DodgeSpeed", attackRange);
                 print("I'm dodging at "+ bladeSensor);
                 Dodge();
