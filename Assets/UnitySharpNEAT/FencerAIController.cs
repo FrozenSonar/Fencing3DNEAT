@@ -47,6 +47,11 @@ public class FencerAIController : UnitController
         public float currentLeftDodges = 0;
         public float currentRightDodges = 0;
 
+        public float currentLeftZoneLeftFencer = 0;
+        public float currentLeftZoneRightFencer = 0;
+        public float currentRightZoneLeftFencer = 0;
+        public float currentRightZoneRightFencer = 0;
+
         private bool _movingForward = true;
 
 
@@ -84,7 +89,7 @@ public class FencerAIController : UnitController
 
             rightTarget = GameObject.Find("RightTarget");
             changeRightColor = rightTarget.GetComponent<changeMaterial>();
-
+            
             if(transform.tag == "Fencer") {
                 print("I am fencer " + transform.tag);
                 sabreHitScript = fencer1.GetComponentInChildren<SabreHit>();
@@ -265,6 +270,19 @@ public class FencerAIController : UnitController
             
             coroutine = FencerRoutine();
             StartCoroutine(coroutine);
+
+            
+
+/*
+                    uiCounter.allLeftZoneLeftFencer++;
+                    uiCounter.allLeftZoneRightFencer++;
+                    uiCounter.allRightZoneLeftFencer++;
+                    uiCounter.allRightZoneRightFencer++;
+                    currentLeftZoneLeftFencer++;
+                    currentLeftZoneRightFencer++;
+                    currentRightZoneLeftFencer++;
+                    currentRightZoneRightFencer++; */
+            
 
             //Stops Fencers when both are hit until new Generation
             if(isBothHit()) {
@@ -521,6 +539,11 @@ public class FencerAIController : UnitController
                 currentLeftDodges = 0;
                 currentRightDodges = 0;
 
+                currentLeftZoneLeftFencer = 0;
+                currentLeftZoneRightFencer = 0;
+                currentRightZoneLeftFencer = 0;
+                currentRightZoneRightFencer = 0;
+
                 _movingForward = true;
 
             // hide/show children 
@@ -570,5 +593,36 @@ public class FencerAIController : UnitController
                 WallHits++;
             }
         }
-    
+        
+    private void OnTriggerStay(Collider col) {
+        
+        if(!(isBothHit())) {
+
+                if (transform.tag == "Other Fencer")
+                {
+                        if(col.gameObject.name == "leftZone"){
+                            uiCounter.allLeftZoneLeftFencer++;
+                            currentLeftZoneLeftFencer++;
+                        }
+
+                        if(col.gameObject.name == "rightZone"){
+                            uiCounter.allRightZoneLeftFencer++;
+                            currentRightZoneLeftFencer++;
+                        }
+
+                }
+                    if (transform.tag == "Fencer")
+                {
+                    if(col.gameObject.name == "leftZone"){
+                            uiCounter.allLeftZoneRightFencer++;
+                            currentLeftZoneRightFencer++;
+                        }
+
+                        if(col.gameObject.name == "rightZone"){
+                            uiCounter.allRightZoneRightFencer++;
+                            currentRightZoneRightFencer++;
+                        }
+                }
+        }
+    }
 }
