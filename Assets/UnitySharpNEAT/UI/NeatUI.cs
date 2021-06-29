@@ -35,6 +35,12 @@ namespace UnitySharpNEAT
         public float rightFit = 0;
         public float currentGen = 0;
         public float lastGen = 0;
+
+        public float currentLeftZoneLeftFencer = 0;
+        public float currentRightZoneLeftFencer = 0;
+        public float currentLeftZoneRightFencer = 0;
+        public float currentRightZoneRightFencer = 0;
+
         public bool isBothHitUI = false;
         hitCounter uiCounter;
         private GameObject fencer1;
@@ -62,6 +68,12 @@ namespace UnitySharpNEAT
             sabreHitLeftScripts = otherfencer1.GetComponentInChildren<SabreHit>();
             leftHit = sabreHitLeftScripts.currentLeftHit;
             rightHit = sabreHitRightScripts.currentRightHit;
+
+            currentLeftZoneLeftFencer = otherfencer1.GetComponent<FencerAIController>().currentLeftZoneLeftFencer;
+            currentRightZoneLeftFencer = otherfencer1.GetComponent<FencerAIController>().currentRightZoneLeftFencer;
+            currentLeftZoneRightFencer = fencer1.GetComponent<FencerAIController>().currentLeftZoneRightFencer;
+            currentRightZoneRightFencer = fencer1.GetComponent<FencerAIController>().currentRightZoneRightFencer;
+
             //sabreHitScripts = GameObject.Find("Sword_blade").GetComponent<SabreHit>();
             
             leftScreen.GetComponent<TextMeshPro>().text = uiCounter.allLeftHit.ToString();

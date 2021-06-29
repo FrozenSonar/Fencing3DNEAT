@@ -5001,17 +5001,22 @@ MonoBehaviour:
       m_Calls: []
   Data:
     mCategories:
-    - Name: Category 1
+    - Name: Left Hits
       Materials:
         Normal: {fileID: 2100000, guid: 1f9e60d530535f94d95be566c4085e9e, type: 2}
         Hover: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
         Selected: {r: 1, g: 1, b: 1, a: 1}
-    - Name: Category 2
+    - Name: Left Dodges
       Materials:
         Normal: {fileID: 2100000, guid: c6a484c3764ff1844bff51f0d4874973, type: 2}
         Hover: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
         Selected: {r: 1, g: 1, b: 1, a: 1}
-    - Name: Category 3
+    - Name: Right Hits
+      Materials:
+        Normal: {fileID: 2100000, guid: 1a6185b0a5845ed44ae78c6570343ed9, type: 2}
+        Hover: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
+        Selected: {r: 1, g: 1, b: 1, a: 1}
+    - Name: Right Dodges
       Materials:
         Normal: {fileID: 2100000, guid: 1a6185b0a5845ed44ae78c6570343ed9, type: 2}
         Hover: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
@@ -5022,39 +5027,48 @@ MonoBehaviour:
     - Group 3
     mData:
     - GroupName: Group 1
-      ColumnName: Category 1
+      ColumnName: Left Hits
       Amount: 5
     - GroupName: Group 1
-      ColumnName: Category 2
+      ColumnName: Left Dodges
       Amount: 3
     - GroupName: Group 1
-      ColumnName: Category 3
+      ColumnName: Right Hits
       Amount: 1
+    - GroupName: Group 1
+      ColumnName: Right Dodges
+      Amount: 0
     - GroupName: Group 2
-      ColumnName: Category 1
+      ColumnName: Left Hits
       Amount: 7
     - GroupName: Group 2
-      ColumnName: Category 2
+      ColumnName: Left Dodges
       Amount: 5
     - GroupName: Group 2
-      ColumnName: Category 3
+      ColumnName: Right Hits
       Amount: 3
+    - GroupName: Group 2
+      ColumnName: Right Dodges
+      Amount: 0
     - GroupName: Group 3
-      ColumnName: Category 1
+      ColumnName: Left Hits
       Amount: 9
     - GroupName: Group 3
-      ColumnName: Category 2
+      ColumnName: Left Dodges
       Amount: 7
     - GroupName: Group 3
-      ColumnName: Category 3
+      ColumnName: Right Hits
       Amount: 5
-    automaticMaxValue: 0
-    maxValue: 10
+    - GroupName: Group 3
+      ColumnName: Right Dodges
+      Amount: 0
+    automaticMaxValue: 1
+    maxValue: 0
     automaticMinValue: 0
     minValue: 0
   transitionTimeBetaFeature: -1
-  heightRatio: 226.2
-  totalWidth: 348.19
+  heightRatio: 182.58324
+  totalWidth: 383.28
   totalDepth: 0
   fitToContainer: 0
   fitMargin:
@@ -5067,7 +5081,7 @@ MonoBehaviour:
   axisSeperation: 20
   barSeperation: 27.46
   groupSeperation: 114.95
-  barSize: 23.37
+  barSize: 31
   barFitType: 1
   barFitAlign: 2
 --- !u!114 &336153649
@@ -5106,8 +5120,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  AnimateOnStart: 1
-  AnimationTime: 3
+  AnimateOnStart: 0
+  AnimationTime: 1
 --- !u!114 &336153650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5123,7 +5137,7 @@ MonoBehaviour:
   SimpleView: 1
   format: 0
   depth:
-    Automatic: 0
+    Automatic: 1
     Value: 0
   mainDivisions:
     messure: 0
@@ -5298,10 +5312,10 @@ MonoBehaviour:
     customFormat: 
   fontSize: 15
   fontSharpness: 3
-  seperation: 19.39
+  seperation: 58.3
   location:
     Breadth: 0
-    Depth: -25.2
+    Depth: -24.97
   alignment: 0
 --- !u!114 &336153654
 MonoBehaviour:
@@ -5684,7 +5698,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 6.65, y: 6.67}
-  m_SizeDelta: {x: 3, y: 5}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &346832867
 GameObject:
@@ -6674,7 +6688,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 2.44, y: 6.67}
-  m_SizeDelta: {x: 3, y: 5}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &421562437
 GameObject:
@@ -7898,7 +7912,7 @@ MonoBehaviour:
   SimpleView: 1
   format: 0
   depth:
-    Automatic: 0
+    Automatic: 1
     Value: 0
   mainDivisions:
     messure: 0
@@ -7922,7 +7936,7 @@ MonoBehaviour:
       type: 3}
     textPrefix: 
     textSuffix: 
-    fractionDigits: 1
+    fractionDigits: 2
     fontSize: 32
     fontSharpness: 1
     textDepth: 0
@@ -7950,7 +7964,7 @@ MonoBehaviour:
       type: 3}
     textPrefix: 
     textSuffix: 
-    fractionDigits: 1
+    fractionDigits: 2
     fontSize: 32
     fontSharpness: 1
     textDepth: 0
@@ -7972,7 +7986,7 @@ MonoBehaviour:
   SimpleView: 1
   format: 0
   depth:
-    Automatic: 0
+    Automatic: 1
     Value: 0
   mainDivisions:
     messure: 0
@@ -7986,7 +8000,7 @@ MonoBehaviour:
       Automatic: 1
       Value: 0.5
     markLength:
-      Automatic: 0
+      Automatic: 1
       Value: 1
     markDepth:
       Automatic: 1
@@ -7996,7 +8010,7 @@ MonoBehaviour:
       type: 3}
     textPrefix: 
     textSuffix: 
-    fractionDigits: 0
+    fractionDigits: 2
     fontSize: 23
     fontSharpness: 1
     textDepth: 0
@@ -8014,7 +8028,7 @@ MonoBehaviour:
       Automatic: 1
       Value: 0.5
     markLength:
-      Automatic: 0
+      Automatic: 1
       Value: 1
     markDepth:
       Automatic: 1
@@ -8024,7 +8038,7 @@ MonoBehaviour:
       type: 3}
     textPrefix: 
     textSuffix: 
-    fractionDigits: 0
+    fractionDigits: 2
     fontSize: 23
     fontSharpness: 1
     textDepth: 0
@@ -27937,11 +27951,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1907848625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 932bc7424c0ae484b9f7b8d1e8646e3f, type: 3}
+  m_Script: {fileID: 11500000, guid: d898be1e1988f3346a507c8b846f308c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Graph: {fileID: 0}
-  TotalPoints: 40
+  barChart: {fileID: 336153648}
+  neatCounter: {fileID: 0}
+  uiCounter: {fileID: 0}
 --- !u!224 &1907848627
 RectTransform:
   m_ObjectHideFlags: 0
