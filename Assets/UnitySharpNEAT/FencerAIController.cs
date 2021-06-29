@@ -349,7 +349,7 @@ public class FencerAIController : UnitController
                 animator.SetFloat("SpecialSpeed", attackRange);
                 Special();
                 
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_fast_Rlow_1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Sword1h_Taunt_mark_2") || animator.GetCurrentAnimatorStateInfo(0).IsName("Sword1h_Taunt_mark_3")|| animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Place_snap_Ldown_2") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_Achilles")) 
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_fast_Rlow_1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_slow_Backtrick") || animator.GetCurrentAnimatorStateInfo(0).IsName("Sword1h_Taunt_mark_3") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Place_snap_Ldown_2") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Place_fast_Llow_1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_Achilles")) 
                 {
                     if (transform.tag == "Other Fencer" && !(isBothHit())){
                         currentLeftAttemptedHits++;
