@@ -13813,7 +13813,7 @@ Light:
   m_Color: {r: 0.9528302, g: 0.9118883, b: 0.7146226, a: 1}
   m_Intensity: 6.35
   m_Range: 35.5
-  m_SpotAngle: 69.1
+  m_SpotAngle: 56.9
   m_InnerSpotAngle: 3.6
   m_CookieSize: 10
   m_Shadows:
