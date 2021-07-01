@@ -4,7 +4,7 @@ using UnityEngine;
 using ChartAndGraph;
 using UnitySharpNEAT;
 
-public class zoneChart : MonoBehaviour
+public class hitBarChart : MonoBehaviour
 {
     public BarChart barChart;
     public NeatUI neatCounter;
@@ -20,8 +20,6 @@ public class zoneChart : MonoBehaviour
         if (barChart == null) // the ChartGraph info is obtained via the inspector
             return;
 
-        barChart.DataSource.RemoveGroup("Group 2");
-        barChart.DataSource.RemoveGroup("Group 3");
         float x = 0f;
 
     }
@@ -43,10 +41,10 @@ public class zoneChart : MonoBehaviour
         */
         float time = Time.time;
         
-            barChart.DataSource.SetValue("Left Hits", "Group 1", allLeftHit);
-            barChart.DataSource.SetValue("Left Dodges", "Group 1", allLeftDodges);
-            barChart.DataSource.SetValue("Right Hits", "Group 1", allRightHit);
-            barChart.DataSource.SetValue("Right Dodges", "Group 1", allRightDodges);
+            barChart.DataSource.SetValue("Left Hits", "Hits and Dodges", allLeftHit);
+            barChart.DataSource.SetValue("Left Dodges", "Hits and Dodges", allLeftDodges);
+            barChart.DataSource.SetValue("Right Hits", "Hits and Dodges", allRightHit);
+            barChart.DataSource.SetValue("Right Dodges", "Hits and Dodges", allRightDodges);
         
     }
 }
