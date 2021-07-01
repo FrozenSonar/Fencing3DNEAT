@@ -351,12 +351,12 @@ public class FencerAIController : UnitController
                     if (transform.tag == "Other Fencer" && !(isBothHit())){
                         currentLeftDodges++;
                         uiCounter.allLeftDodges++;
-                        print(currentLeftDodges);
+                        //print(currentLeftDodges);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit())){
                         currentRightDodges++;
                         uiCounter.allRightDodges++;
-                        print(currentRightDodges);
+                        //print(currentRightDodges);
                     }
                 //}
                 yield return null;
@@ -457,14 +457,24 @@ public class FencerAIController : UnitController
             }
             return 0;
             */
-            float leftAttempt = currentLeftAttemptedHits;
+            float leftAttempt = neatCounter.currentLeftAttemptedHits;
             float leftAllHits = uiCounter.allLeftHit;
-            float rightAttempt = currentRightAttemptedHits;
+            float rightAttempt = neatCounter.currentRightAttemptedHits;
             float rightAllHits = uiCounter.allRightHit;
-            float leftDodges = currentLeftDodges;
-            float rightDodges = currentRightDodges;
+            float leftDodges = neatCounter.currentLeftDodges;
+            float rightDodges = neatCounter.currentRightDodges;
             float leftAllDodges = uiCounter.allLeftDodges;
             float rightAllDodges = uiCounter.allRightDodges;
+
+            float allLeftDefendZone = uiCounter.allLeftZoneLeftFencer;  //Left Defend
+            float allRightAttackZone = uiCounter.allLeftZoneRightFencer; //Right Attack
+            float allLeftAttackZone = uiCounter.allRightZoneLeftFencer; // Left Attack
+            float allRightDefendZone = uiCounter.allRightZoneRightFencer; // Right Defend
+
+            float currentLeftDefendZone = neatCounter.currentLeftZoneLeftFencer; //Left Defend
+            float currentRightAttackZone = neatCounter.currentLeftZoneRightFencer; //Right Attack
+            float currentLeftAttackZone = neatCounter.currentRightZoneLeftFencer; // Left Attack
+            float currentRightDefendZone = neatCounter.currentRightZoneRightFencer; // Right Defend
 
             if (leftAttempt == 0){
                 leftAttempt = 1;
@@ -487,20 +497,32 @@ public class FencerAIController : UnitController
                 rightAllDodges = 1;
             }
 
+            if(allLeftAttackZone == 0){
+                allLeftAttackZone = 1;
+            }
+
+            if(allRightAttackZone == 0){
+                allRightAttackZone = 1;
+            }
+
             //float fit = neatCounter.leftHit - neatCounter.rightHit + leftAllHits;
             //float fit = Mathf.Abs((neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits)) - (neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits)));
             float fit = 0;
-            
+            float growthRate = 0.57721f;
+            float zoneLeftCalc = (currentLeftAttackZone/allLeftAttackZone) - (currentRightAttackZone/allRightAttackZone) + (currentLeftDefendZone/allLeftDefendZone);
+            float zoneRightCalc = (currentRightAttackZone/allRightAttackZone) - (currentLeftAttackZone/allLeftAttackZone) + (currentRightDefendZone/allRightDefendZone);
             if (transform.tag == "Other Fencer") {
                 //fit = Mathf.Abs((neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)) - (neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f)));
-                fit = Mathf.Abs(((neatCounter.leftHit - neatCounter.rightHit) + leftAllHits + (leftAttempt/leftAllHits) + ((leftAllHits - rightAllHits) * 0.2f)) - ((rightDodges/rightAllDodges) + rightDodges)) ;
+                fit = Mathf.Abs(((neatCounter.leftHit - neatCounter.rightHit) + leftAllHits + (leftAttempt/leftAllHits) + ((leftAllHits - rightAllHits)) - ((rightDodges/rightAllDodges) + rightDodges) + (zoneLeftCalc)) * growthRate);
                 neatCounter.leftFit = fit;
+                print(zoneLeftCalc);
             }
 
             if (transform.tag == "Fencer") {
                 //fit = Mathf.Abs((neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f))  - (neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)));
-                fit = Mathf.Abs(((neatCounter.rightHit - neatCounter.leftHit) + rightAllHits + (rightAttempt/rightAllHits) + ((rightAllHits - leftAllHits)* 0.2f)) - ((leftDodges/leftAllDodges) + leftDodges));
+                fit = Mathf.Abs(((neatCounter.rightHit - neatCounter.leftHit) + rightAllHits + (rightAttempt/rightAllHits) + ((rightAllHits - leftAllHits)) - ((leftDodges/leftAllDodges) + leftDodges) + (zoneRightCalc)) * growthRate);
                 neatCounter.rightFit = fit;
+                print(zoneRightCalc);
             }
 
 
@@ -555,45 +577,7 @@ public class FencerAIController : UnitController
             }
             
     }
-    public void NewLap()
-        {
-            if (LastPiece > 2 && _movingForward)
-            {
-                Lap++;
-            }
-        }
-
-    private void OnCollisionEnter(Collision collision)
-        {
-            if (!IsActive)
-                return;
-
-            if (collision.collider.CompareTag("Road"))
-            {
-                RoadPiece rp = collision.collider.GetComponent<RoadPiece>();
-                //  print(collision.collider.tag + " " + rp.PieceNumber);
-
-                if ((rp.PieceNumber != LastPiece) && (rp.PieceNumber == CurrentPiece + 1 || (_movingForward && rp.PieceNumber == 0)))
-                {
-                    LastPiece = CurrentPiece;
-                    CurrentPiece = rp.PieceNumber;
-                    _movingForward = true;
-                }
-                else
-                {
-                    _movingForward = false;
-                }
-                if (rp.PieceNumber == 0)
-                {
-                    CurrentPiece = 0;
-                }
-            }
-            else if (collision.collider.CompareTag("Wall"))
-            {
-                WallHits++;
-            }
-        }
-        
+   
     private void OnTriggerStay(Collider col) {
         
         if(!(isBothHit())) {

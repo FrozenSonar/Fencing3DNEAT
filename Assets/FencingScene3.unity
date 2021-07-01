@@ -2345,7 +2345,7 @@ RectTransform:
   m_GameObject: {fileID: 161237928}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.15, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 315075813}
   m_RootOrder: 0
@@ -3687,7 +3687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textPrefab: {fileID: 11407980, guid: f80216d9fb498d54ba0ce490da342fee, type: 3}
   textFormat:
-    prefix: 
+    prefix: 'Zone Time: '
     suffix: 
     customFormat: 
   fontSize: 21
@@ -3747,7 +3747,7 @@ MonoBehaviour:
       DepthOffset: 0
     - Name: L Atk
       Materials:
-        Normal: {fileID: 2100000, guid: 6e197c2f133bdc84bb930e4bb0ba8aa7, type: 2}
+        Normal: {fileID: 2100000, guid: 196c3d4e0feb55641af73361e4c57ed8, type: 2}
         Hover: {r: 1, g: 1, b: 1, a: 1}
         Selected: {r: 0, g: 0, b: 0, a: 0}
       RadiusScale: 0.5
@@ -5422,22 +5422,22 @@ MonoBehaviour:
     mCategories:
     - Name: Left Hits
       Materials:
-        Normal: {fileID: 2100000, guid: 1f9e60d530535f94d95be566c4085e9e, type: 2}
+        Normal: {fileID: 2100000, guid: ee253f83ef1b94141bb4b553ca54c2ca, type: 2}
         Hover: {r: 0.9558824, g: 0.9558824, b: 0.9558824, a: 1}
         Selected: {r: 1, g: 1, b: 1, a: 1}
     - Name: Left Dodges
       Materials:
-        Normal: {fileID: 2100000, guid: c6a484c3764ff1844bff51f0d4874973, type: 2}
+        Normal: {fileID: 2100000, guid: 6d77138dd214b22459b54d5a09176324, type: 2}
         Hover: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
         Selected: {r: 1, g: 1, b: 1, a: 1}
     - Name: Right Hits
       Materials:
-        Normal: {fileID: 2100000, guid: 1a6185b0a5845ed44ae78c6570343ed9, type: 2}
+        Normal: {fileID: 2100000, guid: 196c3d4e0feb55641af73361e4c57ed8, type: 2}
         Hover: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
         Selected: {r: 1, g: 1, b: 1, a: 1}
     - Name: Right Dodges
       Materials:
-        Normal: {fileID: 2100000, guid: 1a6185b0a5845ed44ae78c6570343ed9, type: 2}
+        Normal: {fileID: 2100000, guid: c633e9df0462a9d4b8d0d1e350398377, type: 2}
         Hover: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
         Selected: {r: 1, g: 1, b: 1, a: 1}
     mGroups:
@@ -30002,7 +30002,7 @@ RectTransform:
   m_GameObject: {fileID: 1961867584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 707778611}
   - {fileID: 244418532}
@@ -30011,7 +30011,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -34.34, y: 0}
+  m_AnchoredPosition: {x: -35.15, y: -16.12}
   m_SizeDelta: {x: 968, y: 334}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1963537709
