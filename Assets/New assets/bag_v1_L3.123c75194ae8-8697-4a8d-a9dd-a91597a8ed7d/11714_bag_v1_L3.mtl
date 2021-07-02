@@ -1,0 +1,80 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 21.11.2011 11:21:17
+
+newmtl bag_plastic
+	Ns 50.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0784 0.0784 0.0784
+	Kd 0.0784 0.0784 0.0784
+	Ks 0.5580 0.5580 0.5580
+	Ke 0.0000 0.0000 0.0000
+
+newmtl bag_body
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.1800 0.1800 0.1800
+	Ke 0.0000 0.0000 0.0000
+	map_Ka bag_fabric_diff.jpg
+	map_Kd bag_fabric_diff.jpg
+
+newmtl bag_tarpaulin
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.1800 0.1800 0.1800
+	Ke 0.0000 0.0000 0.0000
+	map_Ka bag_fabric_plane_diff.jpg
+	map_Kd bag_fabric_plane_diff.jpg
+
+newmtl bag_mount
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.1800 0.1800 0.1800
+	Ke 0.0000 0.0000 0.0000
+	map_Ka bag_fabric_mount.jpg
+	map_Kd bag_fabric_mount.jpg
+
+newmtl bag_lining
+	Ns 14.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.7373 0.1961 0.1961
+	Kd 0.7373 0.1961 0.1961
+	Ks 0.3150 0.3150 0.3150
+	Ke 0.0000 0.0000 0.0000
+
+newmtl bag_belts
+	Ns 55.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.1255 0.1255 0.1255
+	Kd 0.1255 0.1255 0.1255
+	Ks 0.1800 0.1800 0.1800
+	Ke 0.0000 0.0000 0.0000
