@@ -479,6 +479,7 @@ public class FencerAIController : UnitController
             if (leftAttempt == 0){
                 leftAttempt = 1;
             }
+            
             if (leftAllHits == 0){
                 leftAllHits = 1;
             }
@@ -486,6 +487,7 @@ public class FencerAIController : UnitController
             if (rightAttempt == 0){
                 rightAttempt = 1;
             }
+
             if (rightAllHits == 0){
                 rightAllHits = 1;
             }
@@ -493,6 +495,7 @@ public class FencerAIController : UnitController
             if (leftAllDodges == 0){
                 leftAllDodges = 1;
             }
+            
             if (rightAllDodges == 0){
                 rightAllDodges = 1;
             }
@@ -511,8 +514,11 @@ public class FencerAIController : UnitController
             float growthRate = 0.57721f;
             float zoneLeftCalc = (currentLeftAttackZone/allLeftAttackZone) - (currentRightAttackZone/allRightAttackZone) + (currentLeftDefendZone/allLeftDefendZone);
             float zoneRightCalc = (currentRightAttackZone/allRightAttackZone) - (currentLeftAttackZone/allLeftAttackZone) + (currentRightDefendZone/allRightDefendZone);
+
             if (transform.tag == "Other Fencer") {
                 //fit = Mathf.Abs((neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)) - (neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f)));
+                //simplefit = Mathf.Abs(neatCounter.leftHit - neatCounter.rightHit) * growthRate;
+
                 fit = Mathf.Abs(((neatCounter.leftHit - neatCounter.rightHit) + leftAllHits + (leftAttempt/leftAllHits) + ((leftAllHits - rightAllHits)) - ((rightDodges/rightAllDodges) + rightDodges) + (zoneLeftCalc)) * growthRate);
                 neatCounter.leftFit = fit;
                 print(zoneLeftCalc);
