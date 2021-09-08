@@ -61,6 +61,11 @@ public class FencerAIController : UnitController
         public float leftStaminaModifier = 0;
         public float rightStaminaModifier = 0;
 
+        public static float stabStaminaDrain = 10;
+        public static float stabComboStaminaDrain = 10;
+        public static float specialStaminaDrain = 20;
+        public static float dodgeStaminaDrain = 10;
+
         private bool _movingForward = true;
 
 
@@ -331,26 +336,26 @@ public class FencerAIController : UnitController
     IEnumerator FencerRoutine()
     {    
       
-            if (headSensor >= 0.87 ) {
+            if (headSensor >= 0.87) {
 
-                if(currentLeftFencerStamina > 10) {
+                if(transform.tag == "Other Fencer" && currentLeftFencerStamina >= stabComboStaminaDrain) {
                     animator.SetFloat("AttackSpeed", speed);
                     StabCombo();
                 }
 
-                if(currentRightFencerStamina > 10) {
+                if(transform.tag == "Fencer" && currentRightFencerStamina >= stabComboStaminaDrain) {
                     animator.SetFloat("AttackSpeed", speed);
                     StabCombo();
                 }
                 
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attackmidslw") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack&Parry") || animator.GetCurrentAnimatorStateInfo(0).IsName("AttackJmpFwd")) 
                 {
-                    if (transform.tag == "Other Fencer" && !(isBothHit())){
+                    if (transform.tag == "Other Fencer" && !(isBothHit()) && currentLeftFencerStamina >= stabComboStaminaDrain){
                         currentLeftAttemptedHits++;
                         currentLeftFencerStamina -= 10;
                         //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
-                    if (transform.tag == "Fencer" && !(isBothHit())){
+                    if (transform.tag == "Fencer" && !(isBothHit()) && currentRightFencerStamina >= stabComboStaminaDrain){
                         currentRightAttemptedHits++;
                         currentRightFencerStamina -= 10;
                         //print("Right Attempt Hits: " + currentRightAttemptedHits);
@@ -362,18 +367,27 @@ public class FencerAIController : UnitController
 
         
             if (bladeSensor >= 0.985f) {
-                animator.SetFloat("DodgeSpeed", attackRange);
-                print("I'm dodging at "+ bladeSensor);
-                Dodge();
+                if(transform.tag == "Other Fencer" && currentLeftFencerStamina >= dodgeStaminaDrain) {
+                    animator.SetFloat("DodgeSpeed", attackRange);
+                    print("I'm dodging at "+ bladeSensor);
+                    Dodge();
+                }
+
+                if(transform.tag == "Fencer" && currentRightFencerStamina >= dodgeStaminaDrain) {
+                    animator.SetFloat("DodgeSpeed", attackRange);
+                    print("I'm dodging at "+ bladeSensor);
+                    Dodge();
+                }
+
                 //if(animator.GetCurrentAnimatorStateInfo(0).IsName("ShortDodgeDwnwds") || animator.GetCurrentAnimatorStateInfo(0).IsName("DodgeBwds") || animator.GetCurrentAnimatorStateInfo(0).IsName("ShortDodgeFast")) 
                 //{
-                    if (transform.tag == "Other Fencer" && !(isBothHit())){
+                    if (transform.tag == "Other Fencer" && !(isBothHit()) && currentLeftFencerStamina >= dodgeStaminaDrain){
                         currentLeftDodges++;
                         uiCounter.allLeftDodges++;
                         currentLeftFencerStamina -= 10;
                         //print(currentLeftDodges);
                     }
-                    if (transform.tag == "Fencer" && !(isBothHit())){
+                    if (transform.tag == "Fencer" && !(isBothHit()) && currentRightFencerStamina >= dodgeStaminaDrain){
                         currentRightDodges++;
                         uiCounter.allRightDodges++;
                         currentRightFencerStamina -= 10;
@@ -386,17 +400,24 @@ public class FencerAIController : UnitController
             
             
             if (sphereSensor >= 0.6) {
-                animator.SetFloat("SpecialSpeed", attackRange);
-                Special();
-                
+                if(transform.tag == "Other Fencer" && currentLeftFencerStamina >= specialStaminaDrain) {
+                    animator.SetFloat("SpecialSpeed", attackRange);
+                    Special();
+                }
+
+                if(transform.tag == "Fencer" && currentRightFencerStamina >= specialStaminaDrain) {
+                    animator.SetFloat("SpecialSpeed", attackRange);
+                    Special();
+                }
+
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_fast_Rlow_1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_slow_Backtrick") || animator.GetCurrentAnimatorStateInfo(0).IsName("Sword1h_Taunt_mark_3") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Place_snap_Ldown_2") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Place_fast_Llow_1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_Achilles")) 
                 {
-                    if (transform.tag == "Other Fencer" && !(isBothHit())){
+                    if (transform.tag == "Other Fencer" && !(isBothHit()) && currentLeftFencerStamina >= specialStaminaDrain){
                         currentLeftAttemptedHits++;
                         currentLeftFencerStamina -= 15;
                         //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
-                    if (transform.tag == "Fencer" && !(isBothHit())){
+                    if (transform.tag == "Fencer" && !(isBothHit()) && currentRightFencerStamina >= specialStaminaDrain){
                         currentRightAttemptedHits++;
                         currentRightFencerStamina -= 15;
                         //print("Right Attempt Hits: " + currentRightAttemptedHits);
@@ -409,16 +430,22 @@ public class FencerAIController : UnitController
 
     
             if (headSensor >= 0.6) {
-                
+                if(transform.tag == "Other Fencer" && currentLeftFencerStamina >= stabStaminaDrain) {
                 Stab();
+                }
+
+                if(transform.tag == "Fencer" && currentRightFencerStamina >= stabStaminaDrain) {
+                Stab();
+                }
+
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stabbing")) {
 
-                    if (transform.tag == "Other Fencer" && !(isBothHit())){
+                    if (transform.tag == "Other Fencer" && !(isBothHit()) && currentLeftFencerStamina >= stabStaminaDrain){
                         currentLeftAttemptedHits++;
                         currentLeftFencerStamina -= 10;
                         //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
-                    if (transform.tag == "Fencer" && !(isBothHit())){
+                    if (transform.tag == "Fencer" && !(isBothHit()) && currentRightFencerStamina >= stabStaminaDrain){
                         currentRightAttemptedHits++;
                         currentRightFencerStamina -= 10;
                         //print("Right Attempt Hits: " + currentRightAttemptedHits);
@@ -548,14 +575,14 @@ public class FencerAIController : UnitController
                 //fit = Mathf.Abs((neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)) - (neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f)));
                 //simplefit = Mathf.Abs(neatCounter.leftHit - neatCounter.rightHit) * growthRate;
 
-                fit = Mathf.Abs(((neatCounter.leftHit - neatCounter.rightHit) + leftAllHits + (leftAttempt/leftAllHits) + ((leftAllHits - rightAllHits)) - ((rightDodges/rightAllDodges) + rightDodges) + (zoneLeftCalc)) * growthRate);
+                fit = Mathf.Abs(((neatCounter.leftHit - neatCounter.rightHit) + leftAllHits + (leftAttempt/leftAllHits) + ((leftAllHits - rightAllHits)) - ((rightDodges/rightAllDodges) + rightDodges) + (zoneLeftCalc)) + leftStaminaModifier * growthRate);
                 neatCounter.leftFit = fit;
                 print(zoneLeftCalc);
             }
 
             if (transform.tag == "Fencer") {
                 //fit = Mathf.Abs((neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f))  - (neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)));
-                fit = Mathf.Abs(((neatCounter.rightHit - neatCounter.leftHit) + rightAllHits + (rightAttempt/rightAllHits) + ((rightAllHits - leftAllHits)) - ((leftDodges/leftAllDodges) + leftDodges) + (zoneRightCalc)) * growthRate);
+                fit = Mathf.Abs(((neatCounter.rightHit - neatCounter.leftHit) + rightAllHits + (rightAttempt/rightAllHits) + ((rightAllHits - leftAllHits)) - ((leftDodges/leftAllDodges) + leftDodges) + (zoneRightCalc)) + rightStaminaModifier * growthRate);
                 neatCounter.rightFit = fit;
                 print(zoneRightCalc);
             }
