@@ -61,10 +61,10 @@ public class FencerAIController : UnitController
         public float leftStaminaModifier = 0;
         public float rightStaminaModifier = 0;
 
-        public static float stabStaminaDrain = 10;
+        public static float stabStaminaDrain = 8;
         public static float stabComboStaminaDrain = 10;
-        public static float specialStaminaDrain = 20;
-        public static float dodgeStaminaDrain = 10;
+        public static float specialStaminaDrain = 15;
+        public static float dodgeStaminaDrain = 7;
 
         private bool _movingForward = true;
 
@@ -348,17 +348,17 @@ public class FencerAIController : UnitController
                     StabCombo();
                 }
                 
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("StabCombo"))
-                //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attackmidslw") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack&Parry") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack Jmp Fwd") || animator.GetCurrentAnimatorStateInfo(0).IsName("Parry 2") || animator.GetCurrentAnimatorStateInfo(0).IsName("Parry Upwd 2")) 
+                //if (animator.GetCurrentAnimatorStateInfo(0).IsName("StabCombo"))
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("StabCombo") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attackmidslw") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack&Parry") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack Jmp Fwd") || animator.GetCurrentAnimatorStateInfo(0).IsName("Parry 2") || animator.GetCurrentAnimatorStateInfo(0).IsName("Parry Upwd 2")) 
                 {
                     if (transform.tag == "Other Fencer" && !(isBothHit()) && (currentLeftFencerStamina >= stabComboStaminaDrain)){
                         currentLeftAttemptedHits++;
-                        currentLeftFencerStamina -= 10;
+                        currentLeftFencerStamina -= stabComboStaminaDrain;
                         //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit()) && (currentRightFencerStamina >= stabComboStaminaDrain)){
                         currentRightAttemptedHits++;
-                        currentRightFencerStamina -= 10;
+                        currentRightFencerStamina -= stabComboStaminaDrain;
                         //print("Right Attempt Hits: " + currentRightAttemptedHits);
                     }
 
@@ -380,22 +380,22 @@ public class FencerAIController : UnitController
                     Dodge();
                 }
 
-                if(animator.GetCurrentAnimatorStateInfo(0).IsName("Dodge"))
-                //if(animator.GetCurrentAnimatorStateInfo(0).IsName("Short Dodge Dwnwds") || animator.GetCurrentAnimatorStateInfo(0).IsName("Short Dodge Far") || animator.GetCurrentAnimatorStateInfo(0).IsName("Dodge Bwds") || animator.GetCurrentAnimatorStateInfo(0).IsName("Short Dodge Fast") || animator.GetCurrentAnimatorStateInfo(0).IsName("Short Dodgeupperbody")) 
-                {
+                
+                //if(animator.GetCurrentAnimatorStateInfo(0).IsName("Short Dodge Dwnwds") || animator.GetCurrentAnimatorStateInfo(0).IsName("Dodge") || animator.GetCurrentAnimatorStateInfo(0).IsName("Short Dodge Far") || animator.GetCurrentAnimatorStateInfo(0).IsName("Dodge Bwds") || animator.GetCurrentAnimatorStateInfo(0).IsName("Short Dodge Fast") || animator.GetCurrentAnimatorStateInfo(0).IsName("Short Dodgeupperbody")) 
+                //{
                     if (transform.tag == "Other Fencer" && !(isBothHit()) && (currentLeftFencerStamina >= dodgeStaminaDrain)){
                         currentLeftDodges++;
                         uiCounter.allLeftDodges++;
-                        currentLeftFencerStamina -= 10;
+                        currentLeftFencerStamina -= dodgeStaminaDrain;
 
                     }
                     if (transform.tag == "Fencer" && !(isBothHit()) && (currentRightFencerStamina >= dodgeStaminaDrain)){
                         currentRightDodges++;
                         uiCounter.allRightDodges++;
-                        currentRightFencerStamina -= 10;
+                        currentRightFencerStamina -= dodgeStaminaDrain;
 
                     }
-                }
+                //}
                 yield return null;
                 
             }
@@ -412,17 +412,16 @@ public class FencerAIController : UnitController
                     Special();
                 }
 
-                if(animator.GetCurrentAnimatorStateInfo(0).IsName("SpecialMoves"))
-                //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_fast_Rlow_1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_slow_Backtrick") || animator.GetCurrentAnimatorStateInfo(0).IsName("Sword 1h_Taunt_mark_3") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Place_snap_Ldown_2") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Place_fast_Llow_1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_Achilles")) 
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("SpecialMoves") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_fast_Rlow_1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_slow_Backtrick") || animator.GetCurrentAnimatorStateInfo(0).IsName("Sword 1h_Taunt_mark_3") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Place_snap_Ldown_2") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Place_fast_Llow_1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Move_Achilles")) 
                 {
                     if (transform.tag == "Other Fencer" && !(isBothHit()) && (currentLeftFencerStamina >= specialStaminaDrain)){
                         currentLeftAttemptedHits++;
-                        currentLeftFencerStamina -= 15;
+                        currentLeftFencerStamina -= specialStaminaDrain;
                         //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit()) && (currentRightFencerStamina >= specialStaminaDrain)){
                         currentRightAttemptedHits++;
-                        currentRightFencerStamina -= 15;
+                        currentRightFencerStamina -= specialStaminaDrain;
                         //print("Right Attempt Hits: " + currentRightAttemptedHits);
                     }
 
@@ -439,16 +438,17 @@ public class FencerAIController : UnitController
                 if(transform.tag == "Fencer" && (currentRightFencerStamina >= stabStaminaDrain)) {
                 Stab();
                 }
+
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stabbing")) {
 
                     if (transform.tag == "Other Fencer" && !(isBothHit()) && (currentLeftFencerStamina >= stabStaminaDrain)){
                         currentLeftAttemptedHits++;
-                        currentLeftFencerStamina -= 10;
+                        currentLeftFencerStamina -= stabStaminaDrain;
                         //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit()) && (currentRightFencerStamina >= stabStaminaDrain)){
                         currentRightAttemptedHits++;
-                        currentRightFencerStamina -= 10;
+                        currentRightFencerStamina -= stabStaminaDrain;
                         //print("Right Attempt Hits: " + currentRightAttemptedHits);
                     }
 
