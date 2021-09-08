@@ -331,9 +331,17 @@ public class FencerAIController : UnitController
     IEnumerator FencerRoutine()
     {    
       
-            if (headSensor >= 0.87) {
-                animator.SetFloat("AttackSpeed", speed);
-                StabCombo();
+            if (headSensor >= 0.87 ) {
+
+                if(currentLeftFencerStamina > 10) {
+                    animator.SetFloat("AttackSpeed", speed);
+                    StabCombo();
+                }
+
+                if(currentRightFencerStamina > 10) {
+                    animator.SetFloat("AttackSpeed", speed);
+                    StabCombo();
+                }
                 
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attackmidslw") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack&Parry") || animator.GetCurrentAnimatorStateInfo(0).IsName("AttackJmpFwd")) 
                 {
