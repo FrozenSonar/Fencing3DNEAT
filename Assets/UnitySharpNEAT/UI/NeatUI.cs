@@ -22,7 +22,13 @@ namespace UnitySharpNEAT
         
         [SerializeField]
         private GameObject rightScreen;
-        
+
+        [SerializeField]
+        private GameObject leftStaminaScreen;
+
+        [SerializeField]
+        private GameObject rightStaminaScreen;
+
         /// <summary>
         /// Display simple Onscreen buttons for quickly accessing ceratain lifecycle funtions and to display generation info.
         /// </summary>
@@ -89,6 +95,9 @@ namespace UnitySharpNEAT
             
             leftScreen.GetComponent<TextMeshPro>().text = uiCounter.allLeftHit.ToString();
             rightScreen.GetComponent<TextMeshPro>().text = uiCounter.allRightHit.ToString();
+
+            leftStaminaScreen.GetComponent<TextMeshPro>().text =  string.Format("{0:0.00}", otherfencer1.GetComponent<FencerAIController>().currentLeftFencerStamina);
+            rightStaminaScreen.GetComponent<TextMeshPro>().text = string.Format("{0:0.00}", fencer1.GetComponent<FencerAIController>().currentRightFencerStamina);
 
             if(uiCounter.allLeftHit > uiCounter.allRightHit) {
                 leftScreen.GetComponent<TextMeshPro>().color = new Color32(250, 204, 16, 255);

@@ -52,6 +52,15 @@ public class FencerAIController : UnitController
         public float currentRightZoneLeftFencer = 0;
         public float currentRightZoneRightFencer = 0;
 
+        public float currentLeftFencerStaminaBase = 100;
+        public float currentRightFencerStaminaBase = 100;
+
+        public float currentLeftFencerStamina = 100;
+        public float currentRightFencerStamina = 100;
+        
+        public float leftStaminaModifier = 0;
+        public float rightStaminaModifier = 0;
+
         private bool _movingForward = true;
 
 
@@ -330,10 +339,12 @@ public class FencerAIController : UnitController
                 {
                     if (transform.tag == "Other Fencer" && !(isBothHit())){
                         currentLeftAttemptedHits++;
+                        currentLeftFencerStamina -= 10;
                         //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit())){
                         currentRightAttemptedHits++;
+                        currentRightFencerStamina -= 10;
                         //print("Right Attempt Hits: " + currentRightAttemptedHits);
                     }
 
@@ -351,11 +362,13 @@ public class FencerAIController : UnitController
                     if (transform.tag == "Other Fencer" && !(isBothHit())){
                         currentLeftDodges++;
                         uiCounter.allLeftDodges++;
+                        currentLeftFencerStamina -= 10;
                         //print(currentLeftDodges);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit())){
                         currentRightDodges++;
                         uiCounter.allRightDodges++;
+                        currentRightFencerStamina -= 10;
                         //print(currentRightDodges);
                     }
                 //}
@@ -372,10 +385,12 @@ public class FencerAIController : UnitController
                 {
                     if (transform.tag == "Other Fencer" && !(isBothHit())){
                         currentLeftAttemptedHits++;
+                        currentLeftFencerStamina -= 15;
                         //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit())){
                         currentRightAttemptedHits++;
+                        currentRightFencerStamina -= 15;
                         //print("Right Attempt Hits: " + currentRightAttemptedHits);
                     }
 
@@ -392,10 +407,12 @@ public class FencerAIController : UnitController
 
                     if (transform.tag == "Other Fencer" && !(isBothHit())){
                         currentLeftAttemptedHits++;
+                        currentLeftFencerStamina -= 10;
                         //print("Left Attempt Hits: " + currentLeftAttemptedHits);
                     }
                     if (transform.tag == "Fencer" && !(isBothHit())){
                         currentRightAttemptedHits++;
+                        currentRightFencerStamina -= 10;
                         //print("Right Attempt Hits: " + currentRightAttemptedHits);
                     }
 
@@ -476,6 +493,7 @@ public class FencerAIController : UnitController
             float currentLeftAttackZone = neatCounter.currentRightZoneLeftFencer; // Left Attack
             float currentRightDefendZone = neatCounter.currentRightZoneRightFencer; // Right Defend
 
+
             if (leftAttempt == 0){
                 leftAttempt = 1;
             }
@@ -514,6 +532,9 @@ public class FencerAIController : UnitController
             float growthRate = 0.57721f;
             float zoneLeftCalc = (currentLeftAttackZone/allLeftAttackZone) - (currentRightAttackZone/allRightAttackZone) + (currentLeftDefendZone/allLeftDefendZone);
             float zoneRightCalc = (currentRightAttackZone/allRightAttackZone) - (currentLeftAttackZone/allLeftAttackZone) + (currentRightDefendZone/allRightDefendZone);
+
+            leftStaminaModifier = zoneLeftCalc * growthRate;
+            rightStaminaModifier = zoneRightCalc * growthRate;
 
             if (transform.tag == "Other Fencer") {
                 //fit = Mathf.Abs((neatCounter.rightHit + rightAllHits + (rightAttempt/rightAllHits) + (rightDodges * 0.25f)) - (neatCounter.leftHit + leftAllHits + (leftAttempt/leftAllHits) + (leftDodges * 0.25f)));
@@ -571,6 +592,11 @@ public class FencerAIController : UnitController
                 currentLeftZoneRightFencer = 0;
                 currentRightZoneLeftFencer = 0;
                 currentRightZoneRightFencer = 0;
+
+                currentLeftFencerStaminaBase += leftStaminaModifier;
+                currentRightFencerStaminaBase += rightStaminaModifier;
+                currentLeftFencerStamina = currentLeftFencerStaminaBase;
+                currentRightFencerStamina = currentRightFencerStaminaBase;
 
                 _movingForward = true;
 

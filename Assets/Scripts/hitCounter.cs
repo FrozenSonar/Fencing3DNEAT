@@ -14,7 +14,6 @@ public class hitCounter : MonoBehaviour
     public float allRightZoneLeftFencer = 0;
     public float allRightZoneRightFencer = 0;
 
-
     // Start is called before the first frame update
     void Start()
     {
