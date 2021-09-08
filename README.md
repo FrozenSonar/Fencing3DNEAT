@@ -1,6 +1,8 @@
 # A THESIS PROJECT FOR THE COMPLETION OF CCS 233 BSCS-4AAI
 Hello! This is a Unity3D Project created by BSCS Students of West Visayas State University - College of Information and Communications Technology.
-This Unity3D project utilizes UnitySharpNeat
+
+This Unity3D project utilizes UnitySharpNeat.
+
 Full Paper on it is to this link: (link)
 
 ## Group Members:
