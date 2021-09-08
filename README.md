@@ -1,7 +1,18 @@
-![UnitySharpNEAT_logo](https://user-images.githubusercontent.com/1511848/98319619-72429180-1fe1-11eb-9c4f-89d36f19cfc9.jpg)
+# A THESIS PROJECT FOR THE COMPLETION OF CCS 233 BSCS-4AAI
+Hello! This is a Unity3D Project created by BSCS Students of West Visayas State University - College of Information and Communications Technology.
+This Unity3D project utilizes UnitySharpNeat
+Full Paper on it is to this link: (link)
+
+## Group Members:
+
+- Abesamis, Bryan Kent
+- Diosaban, Timothy 
+- Magallanes, Alyssa Danielle
+- Sustiguer, Neil Ryan
 
 
-# UnitySharpNEAT
+
+## UnitySharpNEAT
 NEAT is NeuroEvolution of Augmenting Topologies; an evolutionary algorithm devised by Kenneth O. Stanley.
 [SharpNEAT](https://github.com/colgreen/sharpneat) is a complete implementation of NEAT written in C# and targeting .NET (on both MS Windows and Mono/Linux). 
 
