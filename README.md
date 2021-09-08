@@ -3,11 +3,12 @@ Hello! This is a Unity3D Project created by BSCS Students of West Visayas State 
 This Unity3D project utilizes UnitySharpNeat
 Full Paper on it is to this link: (link)
 
-Group Members:
-Abesamis, Bryan Kent
-Diosaban, Timothy 
-Magallanes, Alyssa Danielle
-Sustiguer, Neil Ryan
+## Group Members:
+
+- Abesamis, Bryan Kent
+- Diosaban, Timothy 
+- Magallanes, Alyssa Danielle
+- Sustiguer, Neil Ryan
 
 
 
