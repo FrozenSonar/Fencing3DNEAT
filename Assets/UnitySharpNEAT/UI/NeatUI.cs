@@ -96,8 +96,8 @@ namespace UnitySharpNEAT
             leftScreen.GetComponent<TextMeshPro>().text = uiCounter.allLeftHit.ToString();
             rightScreen.GetComponent<TextMeshPro>().text = uiCounter.allRightHit.ToString();
 
-            leftStaminaScreen.GetComponent<TextMeshPro>().text =  string.Format("{0:0.00}", otherfencer1.GetComponent<FencerAIController>().currentLeftFencerStamina);
-            rightStaminaScreen.GetComponent<TextMeshPro>().text = string.Format("{0:0.00}", fencer1.GetComponent<FencerAIController>().currentRightFencerStamina);
+            //leftStaminaScreen.GetComponent<TextMeshPro>().text =  string.Format("{0:0.00}", otherfencer1.GetComponent<FencerAIController>().currentLeftFencerStamina);
+            //rightStaminaScreen.GetComponent<TextMeshPro>().text = string.Format("{0:0.00}", fencer1.GetComponent<FencerAIController>().currentRightFencerStamina);
 
             if(uiCounter.allLeftHit > uiCounter.allRightHit) {
                 leftScreen.GetComponent<TextMeshPro>().color = new Color32(250, 204, 16, 255);
