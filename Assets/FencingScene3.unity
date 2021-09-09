@@ -19386,10 +19386,10 @@ MonoBehaviour:
     mData:
     - GroupName: Fencers Stamina
       ColumnName: Left Stamina
-      Amount: 5
+      Amount: 100
     - GroupName: Fencers Stamina
       ColumnName: Right Stamina
-      Amount: 3
+      Amount: 100
     automaticMaxValue: 0
     maxValue: 100
     automaticMinValue: 0
@@ -19489,7 +19489,7 @@ MonoBehaviour:
       type: 3}
     textPrefix: 
     textSuffix: 
-    fractionDigits: 0
+    fractionDigits: 2
     fontSize: 12
     fontSharpness: 3
     textDepth: 0
@@ -19517,7 +19517,7 @@ MonoBehaviour:
       type: 3}
     textPrefix: 
     textSuffix: 
-    fractionDigits: 0
+    fractionDigits: 2
     fontSize: 12
     fontSharpness: 3
     textDepth: 0
@@ -19612,9 +19612,9 @@ MonoBehaviour:
     prefix: 
     suffix: 
     customFormat: 
-  fontSize: 9
+  fontSize: 10
   fontSharpness: 1.83
-  seperation: -9.78
+  seperation: -8.13
   location:
     Breadth: 0
     Depth: 0
@@ -19670,7 +19670,7 @@ MonoBehaviour:
     Breadth: 0
     Depth: 0
   alignment: 0
-  fractionDigits: 0
+  fractionDigits: 2
 --- !u!224 &1240587114
 RectTransform:
   m_ObjectHideFlags: 0

@@ -140,7 +140,8 @@ namespace UnitySharpNEAT
 
             Grapher.Log(leftFit, "Left Fitness",currentGen);
             Grapher.Log(rightFit, "Right Fitness",currentGen);
-            
+            Grapher.Log(otherfencer1.GetComponent<FencerAIController>().currentLeftFencerStaminaBase, "Left Stamina",currentGen);
+            Grapher.Log(fencer1.GetComponent<FencerAIController>().currentRightFencerStaminaBase, "Right Stamina",currentGen);
             
         }
     }
