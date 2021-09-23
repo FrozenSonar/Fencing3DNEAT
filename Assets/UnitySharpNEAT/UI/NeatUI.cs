@@ -9,6 +9,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace UnitySharpNEAT
 {
@@ -52,6 +57,7 @@ namespace UnitySharpNEAT
 
         public float currentLeftAttemptedHits = 0;
         public float currentRightAttemptedHits = 0;
+        public bool isStart = true;
 
         public bool isBothHitUI = false;
         hitCounter uiCounter;
@@ -60,18 +66,21 @@ namespace UnitySharpNEAT
         
         private void Start(){
             uiCounter = GameObject.Find("Cube").GetComponent<hitCounter>();
-            
+            //SceneManager.LoadScene("FencingScene3");
+            //SceneManager.LoadScene("SampleScene");
         }
 
         private void OnGUI()
         {
-            
-            if (GUI.Button(new Rect(10, 10, 110, 40), "Start EA"))
+            if(isStart){
+                if (GUI.Button(new Rect(10, 10, 110, 40), "Start EA"))
             {
                 _neatSupervisor.StartEvolution();
 
                 lastGen = _neatSupervisor.CurrentGeneration;
             }
+            }
+            
 
             fencer1 = GameObject.FindGameObjectsWithTag("Fencer")[0];
             sabreHitRightScripts = fencer1.GetComponentInChildren<SabreHit>();
@@ -118,11 +127,13 @@ namespace UnitySharpNEAT
             //GUI.Button(new Rect(500,10, 130, 30),"Current Right Hit: " + rightHit);
             //GUI.Button(new Rect(500,40, 130, 30),"All Right Hits: " +uiCounter.allRightHit);
             
-            /*
+            
             if (GUI.Button(new Rect(10, 60, 110, 40), "Stop + save EA"))
             {
                 _neatSupervisor.StopEvolution();
+                isStart = false;
             }
+            /*
             if (GUI.Button(new Rect(10, 110, 110, 40), "Run best"))
             {
                 _neatSupervisor.RunBest();
@@ -132,12 +143,12 @@ namespace UnitySharpNEAT
                 ExperimentIO.DeleteAllSaveFiles(_neatSupervisor.Experiment);
             }
             */
+            GUI.Label(new Rect(150, Screen.height - 425, 110, 60), "1 - 4 Change Cameras");
             GUI.Button(new Rect(10, Screen.height - 70, 110, 60), string.Format("Generation: {0}\nFitness: {1:0.0000}", _neatSupervisor.CurrentGeneration, _neatSupervisor.CurrentBestFitness));
             GUI.Button(new Rect(200, Screen.height - 70, 200, 60), string.Format("Left Fitness: {0:0.0000}\nRight Fitness: {1:0.0000}", leftFit, rightFit ));
             currentGen = _neatSupervisor.CurrentGeneration;
 
-            
-
+/*
             Grapher.Log(leftFit, "1_Left Fitness",currentGen);
             Grapher.Log(rightFit, "1_Right Fitness",currentGen);
             Grapher.Log(otherfencer1.GetComponent<FencerAIController>().currentLeftFencerStaminaBase, "2_Left Stamina",currentGen);
@@ -154,6 +165,7 @@ namespace UnitySharpNEAT
             Grapher.Log(uiCounter.allLeftZoneRightFencer, "7_All Left Zone Right Fencer",currentGen);
             Grapher.Log(uiCounter.allRightZoneLeftFencer, "7_All Right Zone Left Fencer",currentGen);
             Grapher.Log(uiCounter.allRightZoneRightFencer, "7_All Right Zone Right Fencer",currentGen);
+            */
             
         }
     }
