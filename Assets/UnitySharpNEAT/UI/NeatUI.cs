@@ -138,10 +138,22 @@ namespace UnitySharpNEAT
 
             
 
-            Grapher.Log(leftFit, "Left Fitness",currentGen);
-            Grapher.Log(rightFit, "Right Fitness",currentGen);
-            Grapher.Log(otherfencer1.GetComponent<FencerAIController>().currentLeftFencerStaminaBase, "Left Stamina",currentGen);
-            Grapher.Log(fencer1.GetComponent<FencerAIController>().currentRightFencerStaminaBase, "Right Stamina",currentGen);
+            Grapher.Log(leftFit, "1_Left Fitness",currentGen);
+            Grapher.Log(rightFit, "1_Right Fitness",currentGen);
+            Grapher.Log(otherfencer1.GetComponent<FencerAIController>().currentLeftFencerStaminaBase, "2_Left Stamina",currentGen);
+            Grapher.Log(fencer1.GetComponent<FencerAIController>().currentRightFencerStaminaBase, "2_Right Stamina",currentGen);
+            Grapher.Log(uiCounter.allLeftHit, "3_All Left Hits",currentGen);
+            Grapher.Log(uiCounter.allRightHit, "3_All Right Hits",currentGen);
+            Grapher.Log(currentLeftAttemptedHits, "4_Attempted Left Hits",currentGen);
+            Grapher.Log(currentRightAttemptedHits, "4_Attempted Right Hits",currentGen);
+            Grapher.Log(uiCounter.allLeftDodges, "5_All Left Dodges",currentGen);
+            Grapher.Log(uiCounter.allRightDodges, "5_All Right Dodges",currentGen);
+            Grapher.Log(currentLeftDodges, "6_Attempted Left Dodge",currentGen);
+            Grapher.Log(currentRightDodges, "6_Attempted Right Dodge",currentGen);
+            Grapher.Log(uiCounter.allLeftZoneLeftFencer, "7_All Left Zone Left Fencer",currentGen);
+            Grapher.Log(uiCounter.allLeftZoneRightFencer, "7_All Left Zone Right Fencer",currentGen);
+            Grapher.Log(uiCounter.allRightZoneLeftFencer, "7_All Right Zone Left Fencer",currentGen);
+            Grapher.Log(uiCounter.allRightZoneRightFencer, "7_All Right Zone Right Fencer",currentGen);
             
         }
     }
