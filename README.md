@@ -15,6 +15,18 @@ Full Paper on it is to this link: (link)
 ## Link to the final build:
 https://drive.google.com/drive/folders/162Fktvqq8aNmEO1ZFMqJCrXMDdkyhvaJ?usp=sharing
 
+## How to use executable file:
+- Download the zipped file from the link to the final build.
+- Extract the folder and its content from the zipped folder named FencerAIBuild.zip.
+- Go into the extracted FencerAIbuild Folder.
+- To launch the UnityNEAT.exe file, double click on it.
+- You will be greeted with a screen that shows the whole simulation not yet running.
+- It has a button that says: Start EA (which starts the simulation). 
+- A draggable timescaler to fast forward the simulation to whichever generation you want.
+- You can also press the numbers 1-4 to change the camera view from (#1) main simulation, (#2) Graph View for Fencer Fitness ,(#3) Bar Graph view for Fencer hits and dodges ,(#4) Pie Graph view for fencer attack aand defense zone times.
+- To reset the simulation you should exit the exe file via the ALT + F4 command and for a rerun you need to run the executable file again.
+NOTE: This is just an application of the Algorithm, to get the data it has to be within the confines of the UnityEngine Application.
+
 ## UnitySharpNEAT
 NEAT is NeuroEvolution of Augmenting Topologies; an evolutionary algorithm devised by Kenneth O. Stanley.
 [SharpNEAT](https://github.com/colgreen/sharpneat) is a complete implementation of NEAT written in C# and targeting .NET (on both MS Windows and Mono/Linux). 
