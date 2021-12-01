@@ -2,8 +2,8 @@
 Hello! This is a Unity3D Project created by BSCS Students of West Visayas State University - College of Information and Communications Technology.
 
 This Unity3D project utilizes UnitySharpNeat.
-
-Full Paper on it is to this link: (link)
+## Link to the final build and File:
+https://drive.google.com/drive/folders/162Fktvqq8aNmEO1ZFMqJCrXMDdkyhvaJ?usp=sharing
 
 ## Group Members:
 
@@ -12,8 +12,6 @@ Full Paper on it is to this link: (link)
 - Magallanes, Alyssa Danielle
 - Sustiguer, Neil Ryan
 
-## Link to the final build:
-https://drive.google.com/drive/folders/162Fktvqq8aNmEO1ZFMqJCrXMDdkyhvaJ?usp=sharing
 
 ## How to use executable file:
 - Download the zipped file from the link to the final build.
