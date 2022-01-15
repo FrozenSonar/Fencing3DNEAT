@@ -2,8 +2,8 @@
 Hello! This is a Unity3D Project created by BSCS Students of West Visayas State University - College of Information and Communications Technology.
 
 This Unity3D project utilizes UnitySharpNeat.
-
-Full Paper on it is to this link: (link)
+## Link to the final build and Paper:
+https://drive.google.com/drive/folders/1mlEMZo0JCix7MH8l94t7D82uySp1KGjP?usp=sharing
 
 ## Group Members:
 
@@ -12,18 +12,16 @@ Full Paper on it is to this link: (link)
 - Magallanes, Alyssa Danielle
 - Sustiguer, Neil Ryan
 
-## Link to the final build:
-https://drive.google.com/drive/folders/162Fktvqq8aNmEO1ZFMqJCrXMDdkyhvaJ?usp=sharing
 
 ## How to use executable file:
 - Download the zipped file from the link to the final build.
 - Extract the folder and its content from the zipped folder named FencerAIBuild.zip.
 - Go into the extracted FencerAIbuild Folder.
-- To launch the UnityNEAT.exe file, double click on it.
-- You will be greeted with a screen that shows the whole simulation not yet running.
+- launch the UnityNEAT.exe file
+- You will be greeted with a screen that shows the whole simulation on idle.
 - It has a button that says: Start EA (which starts the simulation). 
-- A draggable timescaler to fast forward the simulation to whichever generation you want.
-- You can also press the numbers 1-4 to change the camera view from (#1) main simulation, (#2) Graph View for Fencer Fitness ,(#3) Bar Graph view for Fencer hits and dodges ,(#4) Pie Graph view for fencer attack aand defense zone times.
+- A draggable timescale to fast forward the simulation to whichever generation you want.
+- You can also press the numbers 1-4 to change the camera view from (#1) main simulation, (#2) Graph View for Fencer Fitness, (#3) Bar Graph view for Fencer hits and dodges,(#4) Pie Graph view for fencer attack aand defense zone times.
 - To reset the simulation you should exit the exe file via the ALT + F4 command and for a rerun you need to run the executable file again.
 NOTE: This is just an application of the Algorithm, to get the data it has to be within the confines of the UnityEngine Application.
 
