@@ -20,7 +20,7 @@ https://drive.google.com/drive/folders/1mlEMZo0JCix7MH8l94t7D82uySp1KGjP?usp=sha
 - launch the UnityNEAT.exe file
 - You will be greeted with a screen that shows the whole simulation on idle.
 - It has a button that says: Start EA (which starts the simulation). 
-- A draggable timescale to fast forward the simulation to whichever generation you want.
+- A draggable timescale to fast forward the simulation.
 - You can also press the numbers 1-4 to change the camera view from (#1) main simulation, (#2) Graph View for Fencer Fitness, (#3) Bar Graph view for Fencer hits and dodges,(#4) Pie Graph view for fencer attack aand defense zone times.
 - To reset the simulation you should exit the exe file via the ALT + F4 command and for a rerun you need to run the executable file again.
 NOTE: This is just an application of the Algorithm, to get the data it has to be within the confines of the UnityEngine Application.
