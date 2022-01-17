@@ -1,6 +1,8 @@
 # A THESIS PROJECT FOR THE COMPLETION OF CCS 233 BSCS-4AAI
 Hello! This is a Unity3D Project created by BSCS Students of West Visayas State University - College of Information and Communications Technology.
 
+We created this project through an idea of how artificial intelligence can learn from itself and from another intelligence too, in the context of this project the AI controls a Fencer within a simulated fencing game, which then learns from its actions and from the actions of its enemy.
+
 This Unity3D project utilizes UnitySharpNeat.
 ## Link to the Final Build, Paper, & Manual:
 https://drive.google.com/drive/folders/1mlEMZo0JCix7MH8l94t7D82uySp1KGjP?usp=sharing
