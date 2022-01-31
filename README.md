@@ -1,4 +1,4 @@
-#NOTE:
+# NOTE:
 This repository is structured this way so that anyone who wants to test out the simulation within Unity3d wont have errors when linking this Github Repository or downloading the files from this repository.
 
 # A THESIS PROJECT FOR THE COMPLETION OF CCS 233 BSCS-4AAI
